@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# 本地開發模式 (部署後請註解掉)
+# local_backend: true
+
+media_folder: "images/news" # Media files will be stored in the repo under images/news
+public_folder: "/images/news" # The src attribute for uploaded media will begin with /images/news
+
+collections:
+  - name: "news" # Used in routes, e.g., /admin/collections/blog
+    label: "最新消息" # Used in the UI
+    folder: "_posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "標題", name: "title", widget: "string"}
+      - {label: "發布日期", name: "date", widget: "datetime"}
+      - {label: "摘要", name: "excerpt", widget: "text", required: false}
+      - {label: "特色圖片", name: "featured_image", widget: "image", required: false}
+      - {label: "內容", name: "body", widget: "markdown"}
+      - {label: "標籤", name: "tags", widget: "list", required: false}
+      - {label: "是否置頂", name: "pinned", widget: "boolean", default: false}
+      - {label: "發布狀態", name: "published", widget: "boolean", default: true}
+
+  - name: "pages"
+    label: "頁面管理"
+    files:
+      - label: "首頁設定"
+        name: "homepage"
+        file: "_data/homepage.yml"
+        fields:
+          - {label: "網站標題", name: "site_title", widget: "string"}
+          - {label: "主標語", name: "main_heading", widget: "string"}
+          - {label: "副標語", name: "sub_heading", widget: "string"}
+          - {label: "描述", name: "description", widget: "text"}
+      
+      - label: "聯絡資訊"
+        name: "contact"
+        file: "_data/contact.yml"
+        fields:
+          - {label: "地址", name: "address", widget: "string"}
+          - {label: "電話", name: "phone", widget: "string"}
+          - {label: "LINE ID", name: "line_id", widget: "string"}
+          - {label: "營業時間", name: "business_hours", widget: "string"}
+          - {label: "Facebook連結", name: "facebook_url", widget: "string"}

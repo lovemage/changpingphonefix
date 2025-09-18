@@ -13,40 +13,50 @@ class NewsManager {
 
     async loadArticles() {
         try {
-            // 載入示例文章 (實際部署時會從markdown文件載入)
-            this.articles = [
-                {
-                    title: "歡迎來到昌平手機維修",
-                    date: "2024-01-15",
-                    excerpt: "我們提供專業的手機、平板、電腦維修服務，現場免費檢測，誠實報價。",
-                    featured_image: "/images/about-img.jpg",
-                    tags: ["公告", "服務介紹"],
-                    pinned: true,
-                    slug: "welcome"
-                },
-                {
-                    title: "iPhone電池保養小撇步",
-                    date: "2024-01-20",
-                    excerpt: "想讓iPhone電池更耐用嗎？這些保養小撇步一定要知道！",
-                    featured_image: "/images/portfolio-img1.jpg",
-                    tags: ["iPhone", "電池保養", "維修知識"],
-                    pinned: false,
-                    slug: "iphone-battery-tips"
+            // 嘗試從 articles.json 載入文章
+            const response = await fetch('/articles.json');
+            if (response.ok) {
+                const articles = await response.json();
+                if (articles.length > 0) {
+                    this.articles = articles;
+                    return;
                 }
-            ];
-
-            // 按日期排序，置頂文章優先
-            this.articles.sort((a, b) => {
-                if (a.pinned && !b.pinned) return -1;
-                if (!a.pinned && b.pinned) return 1;
-                return new Date(b.date) - new Date(a.date);
-            });
-
+            }
         } catch (error) {
-            console.error('載入文章失敗:', error);
-            this.articles = [];
+            console.warn('無法從 articles.json 載入文章:', error);
         }
+
+        // 如果無法載入 JSON 文件，使用預設文章
+        this.articles = [
+            {
+                title: "歡迎來到昌平手機維修",
+                date: "2024-01-15",
+                excerpt: "我們提供專業的手機、平板、電腦維修服務，現場免費檢測，誠實報價。",
+                featured_image: "/images/about-img.jpg",
+                tags: ["公告", "服務介紹"],
+                pinned: true,
+                slug: "welcome"
+            },
+            {
+                title: "iPhone電池保養小撇步",
+                date: "2024-01-20",
+                excerpt: "想讓iPhone電池更耐用嗎？這些保養小撇步一定要知道！",
+                featured_image: "/images/portfolio-img1.jpg",
+                tags: ["iPhone", "電池保養", "維修知識"],
+                pinned: false,
+                slug: "iphone-battery-tips"
+            }
+        ];
+
+        // 按日期排序，置頂文章優先
+        this.articles.sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1;
+            if (!a.pinned && b.pinned) return 1;
+            return new Date(b.date) - new Date(a.date);
+        });
     }
+
+
 
     renderArticles() {
         if (!this.container) return;
@@ -130,8 +140,7 @@ class NewsManager {
                     </div>
                     ${article.featured_image ? `<img src="${article.featured_image}" alt="${article.title}" class="img-responsive" style="margin-bottom: 20px;">` : ''}
                     <div class="news-full-content">
-                        <p>${article.excerpt}</p>
-                        <p>完整文章內容將在部署Netlify CMS後顯示...</p>
+                        ${article.body ? this.markdownToHtml(article.body) : `<p>${article.excerpt}</p>`}
                         <hr>
                         <p><strong>聯絡我們：</strong></p>
                         <p>📞 電話：0970-805-995<br>
@@ -150,6 +159,22 @@ class NewsManager {
                 modal.remove();
             }
         });
+    }
+
+    markdownToHtml(markdown) {
+        // 簡單的 Markdown 轉 HTML
+        return markdown
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+            .replace(/\*(.*)\*/gim, '<em>$1</em>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/gim, '<a href="$2">$1</a>')
+            .replace(/\n\n/gim, '</p><p>')
+            .replace(/\n/gim, '<br>')
+            .replace(/^(.*)$/gim, '<p>$1</p>')
+            .replace(/<p><\/p>/gim, '')
+            .replace(/<p>(<h[1-6]>.*<\/h[1-6]>)<\/p>/gim, '$1');
     }
 }
 

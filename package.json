@@ -1,0 +1,12 @@
+{
+  "name": "changping-phone-repair",
+  "version": "1.0.0",
+  "description": "昌平手機維修網站",
+  "scripts": {
+    "build": "node generate-articles.js",
+    "dev": "node generate-articles.js && python -m http.server 8000"
+  },
+  "keywords": ["phone repair", "mobile repair", "台中維修"],
+  "author": "昌平手機維修",
+  "license": "MIT"
+}

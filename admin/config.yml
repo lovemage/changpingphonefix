@@ -5,8 +5,8 @@ backend:
 # 本地開發模式 (部署後請註解掉)
 # local_backend: true
 
-media_folder: "images/news" # Media files will be stored in the repo under images/news
-public_folder: "/images/news" # The src attribute for uploaded media will begin with /images/news
+media_folder: "images" # Media files will be stored in the repo under images
+public_folder: "/images" # The src attribute for uploaded media will begin with /images
 
 collections:
   - name: "news" # Used in routes, e.g., /admin/collections/blog
@@ -35,6 +35,18 @@ collections:
           - {label: "主標語", name: "main_heading", widget: "string"}
           - {label: "副標語", name: "sub_heading", widget: "string"}
           - {label: "描述", name: "description", widget: "text"}
+          - label: "首頁背景圖片1"
+            name: "hero_background_1"
+            widget: "image"
+            hint: "建議尺寸：1920x1080px，檔案大小不超過500KB，格式：JPG"
+          - label: "首頁背景圖片2"
+            name: "hero_background_2"
+            widget: "image"
+            hint: "建議尺寸：1920x1080px，檔案大小不超過500KB，格式：JPG"
+          - label: "關於我們圖片"
+            name: "about_image"
+            widget: "image"
+            hint: "建議尺寸：600x400px，檔案大小不超過200KB，格式：JPG"
       
       - label: "聯絡資訊"
         name: "contact"
@@ -45,3 +57,23 @@ collections:
           - {label: "LINE ID", name: "line_id", widget: "string"}
           - {label: "營業時間", name: "business_hours", widget: "string"}
           - {label: "Facebook連結", name: "facebook_url", widget: "string"}
+
+      - label: "維修案例管理"
+        name: "portfolio"
+        file: "_data/portfolio.yml"
+        fields:
+          - label: "維修案例"
+            name: "cases"
+            widget: "list"
+            fields:
+              - {label: "案例標題", name: "title", widget: "string"}
+              - label: "案例圖片"
+                name: "image"
+                widget: "image"
+                hint: "建議尺寸：800x600px，檔案大小不超過1MB，格式：JPG。圖片會自動裁切為正方形顯示"
+              - label: "設備類型"
+                name: "category"
+                widget: "select"
+                options: ["iphone", "android", "tablet", "laptop"]
+                default: "iphone"
+              - {label: "圖片描述", name: "alt", widget: "string"}

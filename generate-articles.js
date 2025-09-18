@@ -95,5 +95,87 @@ function parseMarkdownArticle(content, filename) {
     }
 }
 
+// 簡單的 YAML 解析器（僅支援基本格式）
+function parseSimpleYaml(content) {
+    const result = {};
+    const lines = content.split('\n');
+    let currentArray = null;
+    let currentArrayKey = null;
+
+    for (let line of lines) {
+        line = line.trim();
+        if (!line || line.startsWith('#')) continue;
+
+        if (line.endsWith(':') && !line.includes(' ')) {
+            // 陣列開始
+            currentArrayKey = line.slice(0, -1);
+            currentArray = [];
+            result[currentArrayKey] = currentArray;
+        } else if (line.startsWith('- ') && currentArray) {
+            // 陣列項目
+            const item = {};
+            const itemContent = line.substring(2);
+            if (itemContent.includes(':')) {
+                const [key, value] = itemContent.split(':', 2);
+                item[key.trim()] = value.trim().replace(/^["']|["']$/g, '');
+            }
+            currentArray.push(item);
+        } else if (line.includes(':')) {
+            // 一般鍵值對
+            const [key, ...valueParts] = line.split(':');
+            const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+
+            if (currentArray && currentArray.length > 0) {
+                // 添加到當前陣列項目
+                const lastItem = currentArray[currentArray.length - 1];
+                lastItem[key.trim()] = value;
+            } else {
+                // 添加到根對象
+                result[key.trim()] = value;
+                currentArray = null;
+                currentArrayKey = null;
+            }
+        }
+    }
+
+    return result;
+}
+
+// 生成網站配置 JSON
+function generateSiteConfig() {
+    try {
+        const config = {};
+
+        // 讀取首頁配置
+        const homepagePath = path.join(__dirname, '_data', 'homepage.yml');
+        if (fs.existsSync(homepagePath)) {
+            const homepageContent = fs.readFileSync(homepagePath, 'utf8');
+            config.homepage = parseSimpleYaml(homepageContent);
+        }
+
+        // 讀取聯絡資訊
+        const contactPath = path.join(__dirname, '_data', 'contact.yml');
+        if (fs.existsSync(contactPath)) {
+            const contactContent = fs.readFileSync(contactPath, 'utf8');
+            config.contact = parseSimpleYaml(contactContent);
+        }
+
+        // 讀取維修案例
+        const portfolioPath = path.join(__dirname, '_data', 'portfolio.yml');
+        if (fs.existsSync(portfolioPath)) {
+            const portfolioContent = fs.readFileSync(portfolioPath, 'utf8');
+            config.portfolio = parseSimpleYaml(portfolioContent);
+        }
+
+        // 寫入配置文件
+        fs.writeFileSync(path.join(__dirname, 'site-config.json'), JSON.stringify(config, null, 2));
+        console.log('Generated site-config.json');
+
+    } catch (error) {
+        console.error('Error generating site config:', error);
+    }
+}
+
 // 執行生成
 generateArticlesJson();
+generateSiteConfig();

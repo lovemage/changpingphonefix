@@ -1,0 +1,50 @@
+cases:
+  - title: "iPhone螢幕維修案例"
+    image: "/images/iphone.jpg"
+    category: "iphone"
+    alt: "iPhone螢幕維修案例"
+  
+  - title: "iPhone電池更換"
+    image: "/images/iphone2.jpg"
+    category: "iphone"
+    alt: "iPhone電池更換"
+  
+  - title: "iPhone主機板維修"
+    image: "/images/iphone3.jpg"
+    category: "iphone"
+    alt: "iPhone主機板維修"
+  
+  - title: "iPhone充電孔維修"
+    image: "/images/iphone4.jpg"
+    category: "iphone"
+    alt: "iPhone充電孔維修"
+  
+  - title: "Android手機維修"
+    image: "/images/android.jpg"
+    category: "android"
+    alt: "Android手機維修"
+  
+  - title: "Android螢幕更換"
+    image: "/images/an1.jpg"
+    category: "android"
+    alt: "Android螢幕更換"
+  
+  - title: "Android電池維修"
+    image: "/images/an2.jpg"
+    category: "android"
+    alt: "Android電池維修"
+  
+  - title: "Android系統修復"
+    image: "/images/an3.jpg"
+    category: "android"
+    alt: "Android系統修復"
+  
+  - title: "平板螢幕維修"
+    image: "/images/pad1.jpg"
+    category: "tablet"
+    alt: "平板螢幕維修"
+  
+  - title: "平板充電維修"
+    image: "/images/pad2.jpg"
+    category: "tablet"
+    alt: "平板充電維修"

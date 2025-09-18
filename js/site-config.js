@@ -8,7 +8,7 @@ class SiteConfigManager {
     async init() {
         await this.loadConfig();
         this.updateHomepageImages();
-        this.updatePortfolioImages();
+        // 維修案例已移至獨立頁面，首頁不需要更新
     }
 
     async loadConfig() {

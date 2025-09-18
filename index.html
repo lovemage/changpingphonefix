@@ -470,7 +470,11 @@ http://www.tooplate.com/view/2075-digital-team
 				<p>不用擔心！LINE私訊就能問，現場當天快速交機，安心有保障。</p>
 				<div class="col-md-12 col-sm-12">
 					<h3><i class="icon-location medium-icon wow bounceIn" data-wow-delay="0.3s"></i> 地址</h3>
-					<p>台中市北屯區昌平路一段107之12號</p>
+					<p>台中市北屯區昌平路一段107之12號
+						<button class="btn btn-sm btn-info map-btn" onclick="openMapModal()" style="margin-left: 10px;">
+							<i class="fa fa-map-marker"></i> 查看地圖
+						</button>
+					</p>
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<h3><i class="icon-phone medium-icon wow bounceIn" data-wow-delay="0.6s"></i> 電話</h3>
@@ -488,15 +492,20 @@ http://www.tooplate.com/view/2075-digital-team
 			<div class="col-md-6 col-sm-12">
 				<h2 class="heading bold">快速聯絡</h2>
 				<div class="contact-buttons">
-					<div class="col-md-12 col-sm-12" style="margin-bottom: 20px;">
+					<div class="col-md-12 col-sm-12" style="margin-bottom: 15px;">
 						<a href="tel:0970805995" class="btn btn-danger btn-lg btn-block">
 							<i class="fa fa-phone"></i> 立即撥打 0970 805 995
 						</a>
 					</div>
-					<div class="col-md-12 col-sm-12" style="margin-bottom: 20px;">
+					<div class="col-md-12 col-sm-12" style="margin-bottom: 15px;">
 						<a href="https://lin.ee/2vY34bQ" target="_blank" class="btn btn-success btn-lg btn-block">
-							<i class="fa fa-comment"></i> LINE客服
+							<i class="fa fa-comment"></i> LINE 報價維修
 						</a>
+					</div>
+					<div class="col-md-12 col-sm-12" style="margin-bottom: 20px;">
+						<button class="btn btn-info btn-lg btn-block" onclick="openMapModal()">
+							<i class="fa fa-map-marker"></i> 查看店面位置
+						</button>
 					</div>
 				</div>
 				<form action="#" method="get" class="wow fadeInUp" data-wow-delay="0.6s">
@@ -545,10 +554,73 @@ http://www.tooplate.com/view/2075-digital-team
 	   style="display: block; width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; text-align: center; line-height: 60px; font-size: 24px; color: white; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.3); background-color: #28a745;">
 		<i class="fa fa-phone"></i>
 	</a>
-	<a href="https://lin.ee/2vY34bQ" target="_blank" class="floating-btn line" title="LINE客服"
+	<a href="https://lin.ee/2vY34bQ" target="_blank" class="floating-btn line" title="LINE 報價維修"
 	   style="display: block; width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; text-align: center; line-height: 60px; font-size: 24px; color: white; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.3); background-color: #00c300;">
 		<i class="fa fa-comment"></i>
 	</a>
+</div>
+
+<!-- Google Map 彈窗 -->
+<div id="mapModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="mapModalLabel">
+					<i class="fa fa-map-marker"></i> 昌平手機維修 - 店面位置
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="map-info" style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+							<h5><i class="fa fa-location-arrow"></i> 地址資訊</h5>
+							<p><strong>台中市北屯區昌平路一段107之12號</strong></p>
+							<p><i class="fa fa-clock-o"></i> 營業時間：中午12:00～晚上11:00</p>
+							<p><i class="fa fa-phone"></i> 電話：0970 805 995</p>
+						</div>
+						<div class="map-container" style="position: relative; height: 400px; border-radius: 5px; overflow: hidden; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+							<!-- 地圖預覽圖片 -->
+							<div style="text-align: center; padding: 20px;">
+								<div style="background: url('https://maps.googleapis.com/maps/api/staticmap?center=台中市北屯區昌平路一段107之12號&zoom=16&size=600x400&markers=color:red%7C台中市北屯區昌平路一段107之12號&key=') center/cover; width: 100%; height: 300px; border-radius: 8px; margin-bottom: 15px; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
+									<div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; text-align: center;">
+										<i class="fa fa-map-marker" style="font-size: 48px; color: #dc3545; margin-bottom: 10px;"></i>
+										<h5 style="margin: 0; color: #333;">昌平手機維修</h5>
+										<p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">台中市北屯區昌平路一段107之12號</p>
+									</div>
+								</div>
+								<a href="https://maps.google.com/?q=台中市北屯區昌平路一段107之12號" target="_blank"
+								   class="btn btn-primary btn-lg">
+									<i class="fa fa-external-link"></i> 在 Google Maps 中查看詳細位置
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="row" style="width: 100%;">
+					<div class="col-md-4 col-sm-12" style="margin-bottom: 10px;">
+						<a href="https://maps.google.com/?q=台中市北屯區昌平路一段107之12號" target="_blank" class="btn btn-primary btn-block">
+							<i class="fa fa-external-link"></i> 在 Google Maps 中開啟
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-12" style="margin-bottom: 10px;">
+						<a href="tel:0970805995" class="btn btn-success btn-block">
+							<i class="fa fa-phone"></i> 撥打電話
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-12" style="margin-bottom: 10px;">
+						<a href="https://lin.ee/2vY34bQ" target="_blank" class="btn btn-warning btn-block">
+							<i class="fa fa-comment"></i> LINE 報價
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="js/jquery.js"></script>
@@ -570,6 +642,11 @@ http://www.tooplate.com/view/2075-digital-team
         });
       }
     });
+  }
+
+  // Google Map 彈窗控制
+  function openMapModal() {
+    $('#mapModal').modal('show');
   }
 
   // 確保懸浮按鈕顯示
@@ -594,6 +671,14 @@ http://www.tooplate.com/view/2075-digital-team
         });
       });
     }
+
+    // 確保彈窗在手機上正確顯示
+    $('#mapModal').on('shown.bs.modal', function () {
+      // 重新調整地圖大小
+      if (window.google && window.google.maps) {
+        google.maps.event.trigger(map, 'resize');
+      }
+    });
   });
 </script>
 

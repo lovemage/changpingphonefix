@@ -27,11 +27,12 @@
 		}
 
 		.iso-box img {
-			width: 100%;
-			height: 250px;
-			object-fit: cover;
-			display: block;
+			width: 100% !important;
+			aspect-ratio: 16 / 9 !important;
+			object-fit: cover !important;
+			display: block !important;
 			transition: all 0.4s ease-in-out;
+			border-radius: 8px;
 		}
 
 		.iso-box img:hover {
@@ -52,16 +53,16 @@
 			transform: translateY(-2px);
 		}
 
-		/* 響應式設計 */
+		/* 響應式設計 - 16:9圖片在所有設備上都保持16:9比例 */
 		@media (max-width: 768px) {
 			.iso-box img {
-				height: 200px;
+				aspect-ratio: 16 / 9 !important;
 			}
 		}
 
 		@media (max-width: 480px) {
 			.iso-box img {
-				height: 180px;
+				aspect-ratio: 16 / 9 !important;
 			}
 		}
 	</style>
@@ -265,7 +266,7 @@ function renderPortfolio(cases) {
 	const casesHTML = cases.map(caseItem => `
 		<div class="iso-box ${caseItem.category} col-lg-4 col-md-4 col-sm-6">
 			<a href="${caseItem.image}" data-lightbox-gallery="portfolio-gallery">
-				<img src="${caseItem.image}" alt="${caseItem.alt}" style="width: 100%; height: 250px; object-fit: cover; display: block;">
+				<img src="${caseItem.image}" alt="${caseItem.alt}">
 			</a>
 		</div>
 	`).join('');

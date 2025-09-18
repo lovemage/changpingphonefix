@@ -70,7 +70,7 @@ collections:
               - label: "案例圖片"
                 name: "image"
                 widget: "image"
-                hint: "建議尺寸：800x600px，檔案大小不超過1MB，格式：JPG。圖片會自動裁切為正方形顯示"
+                hint: "建議尺寸：1920x1080px (16:9)，檔案大小不超過1MB，格式：JPG。圖片會以16:9比例顯示，建議上傳16:9橫向圖片以獲得最佳效果"
               - label: "設備類型"
                 name: "category"
                 widget: "select"

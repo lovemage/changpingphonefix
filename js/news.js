@@ -38,13 +38,13 @@ class NewsManager {
                 slug: "welcome"
             },
             {
-                title: "iPhone電池保養小撇步",
+                title: "蘋果手機電池保養小撇步",
                 date: "2024-01-20",
-                excerpt: "想讓iPhone電池更耐用嗎？這些保養小撇步一定要知道！",
+                excerpt: "想讓蘋果手機電池更耐用嗎？這些保養小撇步一定要知道！",
                 featured_image: "/images/portfolio-img1.jpg",
-                tags: ["iPhone", "電池保養", "維修知識"],
+                tags: ["蘋果手機", "電池保養", "維修知識"],
                 pinned: false,
-                slug: "iphone-battery-tips"
+                slug: "apple-phone-battery-tips"
             }
         ];
 

@@ -1,0 +1,79 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# 本地開發模式 (部署後請註解掉)
+# local_backend: true
+
+media_folder: "images" # Media files will be stored in the repo under images
+public_folder: "/images" # The src attribute for uploaded media will begin with /images
+
+collections:
+  - name: "news" # Used in routes, e.g., /admin/collections/blog
+    label: "最新消息" # Used in the UI
+    folder: "_posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - {label: "標題", name: "title", widget: "string"}
+      - {label: "發布日期", name: "date", widget: "datetime"}
+      - {label: "摘要", name: "excerpt", widget: "text", required: false}
+      - {label: "特色圖片", name: "featured_image", widget: "image", required: false}
+      - {label: "內容", name: "body", widget: "markdown"}
+      - {label: "標籤", name: "tags", widget: "list", required: false}
+      - {label: "是否置頂", name: "pinned", widget: "boolean", default: false}
+      - {label: "發布狀態", name: "published", widget: "boolean", default: true}
+
+  - name: "pages"
+    label: "頁面管理"
+    files:
+      - label: "首頁設定"
+        name: "homepage"
+        file: "_data/homepage.yml"
+        fields:
+          - {label: "網站標題", name: "site_title", widget: "string"}
+          - {label: "主標語", name: "main_heading", widget: "string"}
+          - {label: "副標語", name: "sub_heading", widget: "string"}
+          - {label: "描述", name: "description", widget: "text"}
+          - label: "首頁背景圖片1"
+            name: "hero_background_1"
+            widget: "image"
+            hint: "建議尺寸：1920x1080px，檔案大小不超過500KB，格式：JPG"
+          - label: "首頁背景圖片2"
+            name: "hero_background_2"
+            widget: "image"
+            hint: "建議尺寸：1920x1080px，檔案大小不超過500KB，格式：JPG"
+          - label: "關於我們圖片"
+            name: "about_image"
+            widget: "image"
+            hint: "建議尺寸：600x400px，檔案大小不超過200KB，格式：JPG"
+      
+      - label: "聯絡資訊"
+        name: "contact"
+        file: "_data/contact.yml"
+        fields:
+          - {label: "地址", name: "address", widget: "string"}
+          - {label: "電話", name: "phone", widget: "string"}
+          - {label: "LINE ID", name: "line_id", widget: "string"}
+          - {label: "營業時間", name: "business_hours", widget: "string"}
+          - {label: "Facebook連結", name: "facebook_url", widget: "string"}
+
+      - label: "維修案例管理"
+        name: "portfolio"
+        file: "_data/portfolio.yml"
+        fields:
+          - label: "維修案例"
+            name: "cases"
+            widget: "list"
+            fields:
+              - {label: "案例標題", name: "title", widget: "string"}
+              - label: "案例圖片"
+                name: "image"
+                widget: "image"
+                hint: "建議尺寸：1920x1080px (16:9)，檔案大小不超過1MB，格式：JPG。圖片會以16:9比例顯示，建議上傳16:9橫向圖片以獲得最佳效果"
+              - label: "設備類型"
+                name: "category"
+                widget: "select"
+                options: ["iphone", "android", "tablet", "laptop"]
+                default: "iphone"
+              - {label: "圖片描述", name: "alt", widget: "string"}

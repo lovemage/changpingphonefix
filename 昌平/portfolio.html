@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+	<meta charset="utf-8">
+	<title>維修案例 - 昌平手機維修</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="手機維修案例,蘋果手機維修案例,安卓維修案例,平板維修案例,台中維修">
+	<meta name="description" content="昌平手機維修成功案例展示，專業蘋果手機、Android、平板維修技術，讓您的設備重獲新生。">
+	<link rel="icon" type="image/png" href="images/logo300.png">
+	<link rel="apple-touch-icon" href="images/logo300.png">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/et-line-font.css">
+	<link rel="stylesheet" href="css/nivo-lightbox.css">
+	<link rel="stylesheet" href="css/nivo_themes/default/default.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+	<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+	<style>
+		/* 確保維修案例圖片正確顯示 */
+		.iso-box {
+			margin-bottom: 30px;
+		}
+
+		.iso-box img {
+			width: 100% !important;
+			aspect-ratio: 16 / 9 !important;
+			object-fit: cover !important;
+			display: block !important;
+			transition: all 0.4s ease-in-out;
+			border-radius: 8px;
+		}
+
+		.iso-box img:hover {
+			opacity: 0.8;
+			transform: scale(1.05);
+		}
+
+		.iso-box a {
+			display: block;
+			overflow: hidden;
+			border-radius: 8px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			transition: all 0.3s ease;
+		}
+
+		.iso-box a:hover {
+			box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+			transform: translateY(-2px);
+		}
+
+		/* 響應式設計 - 16:9圖片在所有設備上都保持16:9比例 */
+		@media (max-width: 768px) {
+			.iso-box img {
+				aspect-ratio: 16 / 9 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.iso-box img {
+				aspect-ratio: 16 / 9 !important;
+			}
+		}
+
+		/* FAQ 樣式 */
+		#faq {
+			background: #ffffff;
+		}
+
+		.faq-item {
+			border: none;
+			border-radius: 8px;
+			margin-bottom: 15px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+			transition: all 0.3s ease;
+		}
+
+		.faq-item:hover {
+			box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+			transform: translateY(-2px);
+		}
+
+		.faq-item .panel-heading {
+			background: #f8f9fa;
+			border-radius: 8px;
+			border: none;
+			padding: 0;
+		}
+
+		.faq-item .panel-title a {
+			display: block;
+			padding: 20px 25px;
+			color: #333;
+			text-decoration: none;
+			font-weight: 600;
+			font-size: 16px;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+
+		.faq-item .panel-title a:hover {
+			background: #00c6d7;
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		.faq-item .panel-title a[aria-expanded="true"] {
+			background: #00c6d7;
+			color: #ffffff;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		.faq-item .panel-title a .fa-question-circle {
+			color: #00c6d7;
+			margin-right: 10px;
+		}
+
+		.faq-item .panel-title a:hover .fa-question-circle,
+		.faq-item .panel-title a[aria-expanded="true"] .fa-question-circle {
+			color: #ffffff;
+		}
+
+		.faq-item .panel-title a .fa-chevron-down {
+			transition: transform 0.3s ease;
+		}
+
+		.faq-item .panel-title a[aria-expanded="true"] .fa-chevron-down {
+			transform: rotate(180deg);
+		}
+
+		.faq-item .panel-body {
+			padding: 25px;
+			background: #ffffff;
+			border-top: 1px solid #e9ecef;
+			border-bottom-left-radius: 8px;
+			border-bottom-right-radius: 8px;
+		}
+
+		.faq-item .panel-body p {
+			margin: 0;
+			line-height: 1.8;
+			color: #555;
+			font-size: 15px;
+		}
+
+		/* 響應式設計 */
+		@media (max-width: 768px) {
+			.faq-item .panel-title a {
+				padding: 15px 20px;
+				font-size: 15px;
+			}
+
+			.faq-item .panel-body {
+				padding: 20px;
+			}
+
+			.faq-item .panel-body p {
+				font-size: 14px;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<!-- navigation section -->
+<section class="navbar navbar-fixed-top custom-navbar" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+			<a href="index.html" class="navbar-brand">
+				<img src="800logo-w.png" alt="昌平手機維修" class="logo-img">
+				<span class="brand-text">昌平手機維修</span>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="index.html#home" class="smoothScroll">首頁</a></li>
+				<li><a href="index.html#work" class="smoothScroll">服務項目</a></li>
+				<li><a href="index.html#about" class="smoothScroll">關於我們</a></li>
+				<li><a href="index.html#news" class="smoothScroll">最新消息</a></li>
+				<li><a href="portfolio.html" class="active">維修案例</a></li>
+				<li><a href="index.html#reviews" class="smoothScroll">客戶評論</a></li>
+				<li><a href="index.html#contact" class="smoothScroll">聯絡我們</a></li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- portfolio header section -->
+<section id="portfolio-header" style="background: #f8f9fa; padding: 120px 0 80px; text-align: center;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-title">
+					<strong>04</strong>
+					<h1 class="heading bold">維修案例</h1>
+					<hr>
+					<p>專業維修技術，成功案例眾多，讓您的設備重獲新生</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- portfolio section -->
+<section id="portfolio-content" style="padding: 80px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<!-- ISO section -->
+				<div class="iso-section">
+					<ul class="filter-wrapper clearfix">
+                   		 <li><a href="#" data-filter="*" class="selected">全部</a></li>
+                   		 <li><a href="#" data-filter=".iphone">蘋果手機</a></li>
+                   		 <li><a href="#" data-filter=".android">安卓手機</a></li>
+                    	 <li><a href="#" data-filter=".tablet">平板</a></li>
+                    	 <li><a href="#" data-filter=".laptop">電腦</a></li>
+               		</ul>
+               		<div class="iso-box-section wow fadeIn" data-wow-delay="0.3s">
+               			<div class="iso-box-wrapper col4-iso-box" id="portfolio-container">
+               				<!-- 維修案例將通過 JavaScript 動態載入 -->
+               				<div class="portfolio-loading" style="text-align: center; padding: 60px 0; width: 100%;">
+               					<i class="fa fa-spinner fa-spin" style="font-size: 24px; color: #00c6d7;"></i>
+               					<p style="margin-top: 15px; color: #666;">載入維修案例中...</p>
+               				</div>
+               			</div>
+               		</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 常見問題 FAQ 區塊 -->
+<section id="faq" style="background: #ffffff; padding: 80px 0;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 text-center">
+				<div class="section-title">
+					<strong>05</strong>
+					<h1 class="heading bold">常見問題</h1>
+					<hr>
+					<p>專業維修知識分享，解答您的疑問</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="panel-group" id="faq-accordion" role="tablist" aria-multiselectable="true">
+
+					<!-- 問題 1 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq1">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+									<i class="fa fa-question-circle"></i> 什麼是蘋果獨立維修中心(IRP)？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq1">
+							<div class="panel-body">
+								<p>蘋果獨立維修中心(IRP)是通過蘋果認證的公司，可以使用蘋果原廠零件、工具、診斷系統、資源、訓練、維修指南，在蘋果手機、Mac超過保固期時進行維修，像是更換蘋果手機顯示器、電池，或更換Mac主機板、顯示卡。在蘋果官網就可以直接查詢通過認證的公司。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 2 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq2">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+									<i class="fa fa-question-circle"></i> 如何辨認原廠零件？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq2">
+							<div class="panel-body">
+								<p>原廠零件必須由蘋果授權登陸字號，如果店家說是用原廠零件，可以請店家出示相關蘋果原廠授權證書，如果拿不出來就一定有問題。而且在iOS 15.2 和以上版本中，可以直接在「關於本機」查看蘋果手機的零件、維修記錄。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 3 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq3">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+									<i class="fa fa-question-circle"></i> 為什麼手機電池耗電量很快？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq3">
+							<div class="panel-body">
+								<p>手機電池老化、背景應用程式過多、螢幕亮度設置過高等，都可能導致電池耗電變快。可以關閉不必要的背景應用程式，並降低螢幕亮度以減少耗電。建議定期檢查電池健康狀況，可以送到昌平手機維修讓我們為您免費檢測，直接看到手機循環使用次數，我們也能給您最合適的建議。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 4 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq4">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+									<i class="fa fa-question-circle"></i> 為什麼手機突然無法充電？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq4">
+							<div class="panel-body">
+								<p>手機無法充電可能是因為充電器、充電線損壞，也有可能是手機充電埠內有異物或電池、主機板故障。可以先更換充電線和充電器，並檢查充電埠有無異物。若無法確定問題，也可以讓昌平手機維修為您免費清潔、檢測。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 5 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq5">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+									<i class="fa fa-question-circle"></i> 手機螢幕破裂該怎麼辦？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq5">
+							<div class="panel-body">
+								<p>螢幕破裂會影響外觀與使用體驗，使用時觸控靈敏度會降低，甚至容易被碎片劃傷，而且破裂範圍容易擴大，建議盡早更換螢幕。昌平手機維修有專業維修技術，可以為您更換原廠或高品質螢幕，確保顯示效果和耐用性。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 6 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq6">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+									<i class="fa fa-question-circle"></i> 手機進水了該怎麼處理？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq6">
+							<div class="panel-body">
+								<p>手機進水後請立即關機，不要嘗試開機或充電，將手機擦乾並取出SIM卡。可以放入乾燥劑或米粒中吸濕，但最好的方式是立即送到專業維修店進行清潔處理。昌平手機維修提供專業的進水處理服務，能最大程度降低損害。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 7 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq7">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+									<i class="fa fa-question-circle"></i> 手機維修需要多長時間？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq7">
+							<div class="panel-body">
+								<p>維修時間依問題複雜度而定，一般螢幕更換約30-60分鐘，電池更換約20-40分鐘，主機板維修可能需要1-3天。我們會在檢測後告知您確切的維修時間，大部分問題都能當天完成，讓您快速取回愛機。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 8 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq8">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+									<i class="fa fa-question-circle"></i> 維修後有保固嗎？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq8">
+							<div class="panel-body">
+								<p>是的，我們提供維修保固服務。螢幕更換提供3個月保固，電池更換提供6個月保固，主機板維修提供1個月保固。保固期間內如有相同問題，我們會免費重新處理，讓您維修更安心。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 9 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq9">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+									<i class="fa fa-question-circle"></i> 維修前需要備份資料嗎？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq9">
+							<div class="panel-body">
+								<p>建議在維修前先備份重要資料，雖然我們會盡力保護您的資料安全，但維修過程中仍有資料遺失的風險。您可以使用iCloud、iTunes或其他備份工具，確保重要照片、聯絡人、訊息等資料的安全。</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- 問題 10 -->
+					<div class="panel panel-default faq-item">
+						<div class="panel-heading" role="tab" id="faq10">
+							<h4 class="panel-title">
+								<a role="button" data-toggle="collapse" data-parent="#faq-accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
+									<i class="fa fa-question-circle"></i> 如何預防手機故障？
+									<i class="fa fa-chevron-down pull-right"></i>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="faq10">
+							<div class="panel-body">
+								<p>定期清理手機、避免過度充電、使用保護殼和螢幕保護貼、避免在極端溫度環境使用、定期更新系統軟體等，都能有效延長手機使用壽命。另外，避免使用劣質充電器和配件，也是保護手機的重要方式。</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 返回首頁按鈕 -->
+<section style="background: #f8f9fa; padding: 40px 0; text-align: center;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<a href="index.html" class="btn" style="background: #00c6d7; border: 3px solid #00c6d7; color: #ffffff; padding: 12px 30px; font-size: 16px; border-radius: 0; letter-spacing: 1px; transition: all 0.4s ease-in-out;" onmouseover="this.style.background='transparent'; this.style.color='#00c6d7';" onmouseout="this.style.background='#00c6d7'; this.style.color='#ffffff';">
+					<i class="fa fa-home"></i> 返回首頁
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- footer section -->
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="footer-logo">
+					<img src="images/logo300.png" alt="昌平手機維修" class="footer-logo-img">
+				</div>
+				<p class="copyright-text">Copyright &copy; 2024 昌平手機維修 - 台中北屯專業手機平板維修</p>
+				<ul class="social-icon">
+					<li><a href="tel:0970805995" class="fa fa-phone"></a></li>
+					<li><a href="https://lin.ee/2vY34bQ" target="_blank" class="fa fa-comment"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- 懸浮聯絡按鈕 -->
+<div class="floating-buttons">
+	<a href="tel:0970805995" class="floating-btn phone-btn" 
+	   style="display: block; width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; text-align: center; line-height: 60px; font-size: 24px; color: white; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.3); background-color: #28a745;">
+		<i class="fa fa-phone"></i>
+	</a>
+	<a href="https://lin.ee/2vY34bQ" target="_blank" class="floating-btn line-btn" 
+	   style="display: block; width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; text-align: center; line-height: 60px; font-size: 24px; color: white; text-decoration: none; box-shadow: 0 4px 8px rgba(0,0,0,0.3); background-color: #00c300;">
+		<i class="fa fa-comment"></i>
+	</a>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/imagesloaded.min.js"></script>
+<script src="js/nivo-lightbox.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/site-config.js"></script>
+
+<script>
+$(document).ready(function() {
+	// 初始化 WOW 動畫
+	new WOW().init();
+	
+	// 載入維修案例
+	loadPortfolioPage();
+	
+	// 確保懸浮按鈕顯示
+	const floatingButtons = document.querySelector('.floating-buttons');
+	if (floatingButtons) {
+		floatingButtons.style.display = 'block';
+		floatingButtons.style.visibility = 'visible';
+	}
+});
+
+// 載入維修案例頁面
+async function loadPortfolioPage() {
+	try {
+		const response = await fetch('/site-config.json');
+		let config;
+		
+		if (response.ok) {
+			config = await response.json();
+		} else {
+			// 使用預設配置
+			config = {
+				portfolio: {
+					cases: [
+						{title: "蘋果手機螢幕維修案例", image: "/images/iphone.jpg", category: "iphone", alt: "蘋果手機螢幕維修案例"},
+						{title: "蘋果手機電池更換", image: "/images/iphone2.jpg", category: "iphone", alt: "蘋果手機電池更換"},
+						{title: "蘋果手機主機板維修", image: "/images/iphone3.jpg", category: "iphone", alt: "蘋果手機主機板維修"},
+						{title: "蘋果手機充電孔維修", image: "/images/iphone4.jpg", category: "iphone", alt: "蘋果手機充電孔維修"},
+						{title: "Android手機維修", image: "/images/android.jpg", category: "android", alt: "Android手機維修"},
+						{title: "Android螢幕更換", image: "/images/an1.jpg", category: "android", alt: "Android螢幕更換"},
+						{title: "Android電池維修", image: "/images/an2.jpg", category: "android", alt: "Android電池維修"},
+						{title: "Android系統修復", image: "/images/an3.jpg", category: "android", alt: "Android系統修復"},
+						{title: "平板螢幕維修", image: "/images/pad1.jpg", category: "tablet", alt: "平板螢幕維修"},
+						{title: "平板充電維修", image: "/images/pad2.jpg", category: "tablet", alt: "平板充電維修"}
+					]
+				}
+			};
+		}
+		
+		renderPortfolio(config.portfolio.cases);
+		
+	} catch (error) {
+		console.error('載入維修案例失敗:', error);
+		document.getElementById('portfolio-container').innerHTML = `
+			<div style="text-align: center; padding: 60px 0; width: 100%;">
+				<p style="color: #666;">載入維修案例時發生錯誤，請重新整理頁面。</p>
+			</div>
+		`;
+	}
+}
+
+// 渲染維修案例
+function renderPortfolio(cases) {
+	const container = document.getElementById('portfolio-container');
+	
+	if (!cases || cases.length === 0) {
+		container.innerHTML = `
+			<div style="text-align: center; padding: 60px 0; width: 100%;">
+				<p style="color: #666;">目前沒有維修案例</p>
+			</div>
+		`;
+		return;
+	}
+	
+	const casesHTML = cases.map(caseItem => `
+		<div class="iso-box ${caseItem.category} col-lg-4 col-md-4 col-sm-6">
+			<a href="${caseItem.image}" data-lightbox-gallery="portfolio-gallery">
+				<img src="${caseItem.image}" alt="${caseItem.alt}">
+			</a>
+		</div>
+	`).join('');
+	
+	container.innerHTML = casesHTML;
+	
+	// 重新初始化 isotope 和 lightbox
+	setTimeout(() => {
+		initializePortfolioFeatures();
+	}, 100);
+}
+
+// 獲取分類中文名稱
+function getCategoryName(category) {
+	const names = {
+		'iphone': '蘋果手機',
+		'android': '安卓手機',
+		'tablet': '平板',
+		'laptop': '電腦'
+	};
+	return names[category] || category;
+}
+
+// 初始化維修案例功能
+function initializePortfolioFeatures() {
+	const $container = $('.iso-box-wrapper');
+	
+	// 初始化 isotope
+	$container.imagesLoaded(function() {
+		$container.isotope({
+			itemSelector: '.iso-box',
+			layoutMode: 'fitRows'
+		});
+	});
+	
+	// 初始化 lightbox
+	$('.iso-box-section a').nivoLightbox({
+		effect: 'fadeScale',
+	});
+	
+	// 篩選功能
+	$('.filter-wrapper a').click(function(e) {
+		e.preventDefault();
+
+		$('.filter-wrapper a').removeClass('selected');
+		$(this).addClass('selected');
+
+		const filterValue = $(this).attr('data-filter');
+		$container.isotope({ filter: filterValue });
+	});
+}
+</script>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

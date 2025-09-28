@@ -1,0 +1,35 @@
+# 昌平手機維修網站 robots.txt
+# 允許搜尋引擎爬蟲收錄主要內容頁面
+
+# 所有搜尋引擎爬蟲的規則
+User-agent: *
+
+# 允許收錄的主要頁面和資源
+Allow: /
+Allow: /index.html
+Allow: /portfolio.html
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /site-config.json
+
+# 禁止收錄的目錄和文件
+Disallow: /admin/
+Disallow: /_data/
+Disallow: /_posts/
+Disallow: /generate-articles.js
+Disallow: /netlify.toml
+Disallow: /package.json
+Disallow: /cms_圖片管理說明.md
+Disallow: /netlify_cms_setup.md
+
+# 設定爬蟲延遲時間（秒）
+Crawl-delay: 1
+
+# 指定 sitemap 位置
+Sitemap: https://cp-phonefix.com/sitemap.xml
+
+# Google 圖片搜尋優化
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /admin/

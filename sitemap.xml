@@ -1,23 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+        http://www.google.com/schemas/sitemap-image/1.1
+        http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
 
   <!-- 首頁 -->
   <url>
     <loc>https://cp-phonefix.com/</loc>
-    <lastmod>2024-09-28</lastmod>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/logo300.png</image:loc>
+      <image:title>昌平手機維修 Logo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/home-bg-slideshow1.jpg</image:loc>
+      <image:title>昌平手機維修服務展示</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/home-bg-slideshow2.jpg</image:loc>
+      <image:title>專業手機維修技術</image:title>
+    </image:image>
   </url>
 
   <!-- 維修案例頁面 -->
   <url>
     <loc>https://cp-phonefix.com/portfolio.html</loc>
-    <lastmod>2024-09-28</lastmod>
+    <lastmod>2025-01-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img1.jpg</image:loc>
+      <image:title>蘋果手機維修案例</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img2.jpg</image:loc>
+      <image:title>Android手機維修案例</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img3.jpg</image:loc>
+      <image:title>平板維修案例</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img4.jpg</image:loc>
+      <image:title>摺疊機維修案例</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img5.jpg</image:loc>
+      <image:title>電腦維修案例</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img6.jpg</image:loc>
+      <image:title>專業維修工具</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img7.jpg</image:loc>
+      <image:title>維修過程展示</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img8.jpg</image:loc>
+      <image:title>完成維修展示</image:title>
+    </image:image>
+  </url>
+
+  <!-- 文章頁面 - 為SEO優化預留 -->
+  <!-- 三星手機電池更換全攻略 -->
+  <url>
+    <loc>https://cp-phonefix.com/articles/三星手機電池更換全攻略：讓你的愛機重獲新生！</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/news/an3.jpg</image:loc>
+      <image:title>三星手機電池更換</image:title>
+    </image:image>
+  </url>
+
+  <!-- 歡迎來到昌平手機維修 -->
+  <url>
+    <loc>https://cp-phonefix.com/articles/welcome</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/about-img.jpg</image:loc>
+      <image:title>昌平手機維修服務介紹</image:title>
+    </image:image>
+  </url>
+
+  <!-- 蘋果手機電池保養小撇步 -->
+  <url>
+    <loc>https://cp-phonefix.com/articles/iphone-battery-tips</loc>
+    <lastmod>2024-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/portfolio-img1.jpg</image:loc>
+      <image:title>蘋果手機電池保養</image:title>
+    </image:image>
+  </url>
+
+  <!-- 重要資源文件 -->
+  <url>
+    <loc>https://cp-phonefix.com/articles.json</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://cp-phonefix.com/robots.txt</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
+  </url>
+
+  <!-- 服務相關圖片 -->
+  <url>
+    <loc>https://cp-phonefix.com/images/iphone.jpg</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://cp-phonefix.com/images/android.jpg</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://cp-phonefix.com/images/pad1.jpg</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://cp-phonefix.com/images/pad2.jpg</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
 
 </urlset>

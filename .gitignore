@@ -1,0 +1,37 @@
+# 排除其他專案文件夾
+../台客在清邁/
+../7-11資料爬取/
+../Canvas-Templete/
+../hakka/
+../hakkaice/
+../heat-center/
+../manga-canvas/
+../oceanads/
+../入境管理處/
+../報價單/
+../柴柴香氛小舖/
+../模板235/
+../漫畫屋/
+../神來一筆/
+../网盘极速/
+../.claude/
+
+# 系統文件
+desktop.ini
+.DS_Store
+Thumbs.db
+
+# Node modules
+node_modules/
+
+# 編輯器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日誌文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

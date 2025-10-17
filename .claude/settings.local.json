@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n更新 SEO 文件 - 設定正確域名 cp-phonefix.com\n\n- 更新 sitemap.xml 使用正確的域名 https://cp-phonefix.com/\n- 更新 robots.txt 指向正確的 sitemap 位置\n- 優化搜尋引擎索引設定\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

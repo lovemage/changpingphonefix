@@ -24,18 +24,6 @@
         "alt": "蘋果手機螢幕維修案例"
       },
       {
-        "title": "蘋果手機電池更換",
-        "image": "/images/iphone2.jpg",
-        "category": "iphone",
-        "alt": "蘋果手機電池更換"
-      },
-      {
-        "title": "蘋果手機主機板維修",
-        "image": "/images/iphone3.jpg",
-        "category": "iphone",
-        "alt": "蘋果手機主機板維修"
-      },
-      {
         "title": "蘋果手機充電孔維修",
         "image": "/images/iphone4.jpg",
         "category": "iphone",
@@ -64,12 +52,6 @@
         "image": "/images/an3.jpg",
         "category": "android",
         "alt": "Android系統修復"
-      },
-      {
-        "title": "平板螢幕維修",
-        "image": "/images/pad1.jpg",
-        "category": "tablet",
-        "alt": "平板螢幕維修"
       },
       {
         "title": "平板充電維修",

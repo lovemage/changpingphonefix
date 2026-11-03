@@ -8,6 +8,7 @@ class SiteConfigManager {
     async init() {
         await this.loadConfig();
         this.updateHomepageImages();
+        this.applyContent();
         // 維修案例已移至獨立頁面，首頁不需要更新
     }
 
@@ -76,6 +77,49 @@ class SiteConfigManager {
         const aboutImg = document.querySelector('#about img[src*="about-img"]');
         if (aboutImg && this.config.homepage.about_image) {
             aboutImg.src = this.config.homepage.about_image;
+        }
+    }
+
+    // 把 CMS 後台設定的文字套用到頁面上
+    applyContent() {
+        const config = this.config || {};
+        const home = config.homepage || {};
+        const contact = config.contact || {};
+
+        const setText = (selector, value) => {
+            if (!value) return;
+            const el = document.querySelector(selector);
+            if (el) el.textContent = value;
+        };
+
+        // 首頁標題與文案
+        if (home.site_title) document.title = home.site_title;
+        setText('#home h1', home.main_heading);
+        setText('#home h2', home.sub_heading);
+        setText('#home p', home.description);
+
+        // 聯絡資訊
+        setText('#site-address', contact.address);
+        setText('#site-phone', contact.phone);
+        setText('#site-hours', contact.business_hours);
+
+        // 電話連結與按鈕文字
+        const tel = (contact.phone || '').replace(/[^\d+]/g, '');
+        if (tel) {
+            document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+                link.setAttribute('href', 'tel:' + tel);
+                if (/立即撥打|撥打/.test(link.textContent) && contact.phone) {
+                    link.innerHTML = link.innerHTML.replace(/[\d][\d\s\-]{7,}/, contact.phone);
+                }
+            });
+        }
+
+        // 地圖連結與彈窗地址
+        if (contact.address) {
+            document.querySelectorAll('a[href*="maps.google.com"]').forEach((link) => {
+                link.setAttribute('href', 'https://maps.google.com/?q=' + encodeURIComponent(contact.address));
+            });
+            setText('#mapModal .map-info strong', contact.address);
         }
     }
 

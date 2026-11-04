@@ -36,6 +36,16 @@ collections:
         pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "只能使用英文小寫、數字與連字號（-），例如 iphone-15-battery-replacement"]
         hint: "文章網址會是 https://cp-phonefix.com/news/這裡填的內容/ 。發佈後請勿再修改，否則舊網址會失效。"
       - {label: "發布日期", name: "date", widget: "datetime", default: "{{now}}", picker_utc: false}
+      - label: "文章分類"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        file: "categories"
+        search_fields: ["categories.*.name"]
+        display_fields: ["categories.*.name"]
+        value_field: "categories.*.slug"
+        options_length: 5
+        hint: "必選。文章會出現在「最新消息」對應的分類頁。分類可在左側「文章分類」新增或改名（最多 5 個）。"
       - {label: "最後更新日期", name: "updated", widget: "datetime", required: false, picker_utc: false, hint: "文章有實質修改時再填，搜尋引擎會顯示為更新日期。"}
       - {label: "摘要", name: "excerpt", widget: "text", required: false, hint: "顯示在文章列表與文章開頭，也是預設的搜尋結果描述。建議 50～120 個中文字。"}
       - {label: "特色圖片", name: "featured_image", widget: "image", required: false, hint: "顯示於文章頂部、列表卡片與 Facebook/LINE 分享。建議 1200×675px（16:9）、JPG、500KB 以內。"}
@@ -52,6 +62,30 @@ collections:
       - {label: "是否置頂", name: "pinned", widget: "boolean", default: false, required: false}
       - {label: "發布狀態", name: "published", widget: "boolean", default: true, required: false, hint: "關閉後文章會從網站移除（檔案仍保留，可再開啟）。"}
       - {label: "內容格式", name: "format", widget: "hidden", default: "html"}
+
+  - name: "categories"
+    label: "文章分類"
+    description: "最新消息的分類，最多 5 個，順序就是前台分類按鈕的順序（可拖曳調整）。"
+    files:
+      - label: "文章分類"
+        name: "categories"
+        file: "_data/news_categories.yml"
+        fields:
+          - label: "分類"
+            name: "categories"
+            widget: "list"
+            label_singular: "分類"
+            summary: "{{fields.name}}　｜　/news/category/{{fields.slug}}/"
+            min: 1
+            max: 5
+            fields:
+              - {label: "分類名稱", name: "name", widget: "string", hint: "顯示在前台的分類按鈕與分類頁標題，建議 2～6 個字。"}
+              - label: "網址代稱"
+                name: "slug"
+                widget: "string"
+                pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "只能使用英文小寫、數字與連字號，例如 repair-guide"]
+                hint: "分類頁網址 /news/category/網址代稱/。建立後請勿修改，否則已選此分類的文章會變成未分類、舊網址也會失效。"
+              - {label: "分類說明", name: "description", widget: "text", required: false, hint: "顯示在分類頁標題下方，也是該分類頁的搜尋結果描述。建議 50～120 個中文字。"}
 
   - name: "homepage"
     label: "首頁設定"

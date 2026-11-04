@@ -10,6 +10,7 @@
     "tags": [
       "三星"
     ],
+    "category": "維修知識",
     "pinned": true
   },
   {
@@ -24,6 +25,7 @@
       "公告",
       "服務介紹"
     ],
+    "category": "店家公告",
     "pinned": true
   },
   {
@@ -39,6 +41,7 @@
       "電池保養",
       "維修知識"
     ],
+    "category": "保養技巧",
     "pinned": false
   }
 ]

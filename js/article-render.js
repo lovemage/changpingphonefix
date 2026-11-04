@@ -110,6 +110,10 @@
     return '/news/' + slug + '/';
   }
 
+  function categoryUrl(slug) {
+    return '/news/category/' + slug + '/';
+  }
+
   function normalizeTags(tags) {
     if (!tags) return [];
     if (typeof tags === 'string') tags = tags.split(',');
@@ -176,6 +180,9 @@
     var published = toIso(data.date);
     var modified = toIso(data.updated) || published;
     var tags = normalizeTags(data.tags);
+    var category = data.category && data.categoryName
+      ? { slug: String(data.category), name: String(data.categoryName), path: categoryUrl(data.category) }
+      : null;
 
     return {
       title: title,
@@ -188,6 +195,7 @@
       published: published,
       modified: modified,
       tags: tags,
+      category: category,
       slug: data.slug,
       path: articleUrl(data.slug),
       url: absoluteUrl(articleUrl(data.slug)),
@@ -203,10 +211,11 @@
     }).join('') + '</ul>';
   }
 
-  function renderBreadcrumb(title) {
+  function renderBreadcrumb(title, category) {
     return '<nav class="article-breadcrumb" aria-label="麵包屑導覽"><ol>' +
       '<li><a href="/">首頁</a></li>' +
       '<li><a href="/news/">最新消息</a></li>' +
+      (category ? '<li><a href="' + escapeHtml(category.path) + '">' + escapeHtml(category.name) + '</a></li>' : '') +
       '<li aria-current="page">' + escapeHtml(title) + '</li>' +
       '</ol></nav>';
   }
@@ -239,10 +248,11 @@
       ? '<span class="article-updated">更新於 <time datetime="' + escapeHtml(meta.modified) + '">' + formatDate(data.updated) + '</time></span>'
       : '';
 
-    return renderBreadcrumb(meta.title) +
+    return renderBreadcrumb(meta.title, meta.category) +
       '<article class="article">' +
         '<header class="article-header">' +
           '<div class="article-meta">' +
+            (meta.category ? '<a class="article-category" href="' + escapeHtml(meta.category.path) + '">' + escapeHtml(meta.category.name) + '</a>' : '') +
             '<time datetime="' + escapeHtml(meta.published) + '">' + formatDate(data.date) + '</time>' +
             modifiedLabel +
           '</div>' +
@@ -261,19 +271,45 @@
   }
 
   /*
+   * 列表頁上方：分類切換 + 排序
+   * categories: [{ slug, name, count }]，activeSlug 為空代表「全部」
+   */
+  function renderCategoryNav(categories, activeSlug, total, showSort) {
+    function tab(href, label, count, active) {
+      return '<li><a class="news-filter-link' + (active ? ' is-active' : '') + '" href="' + escapeHtml(href) + '"' +
+        (active ? ' aria-current="page"' : '') + '>' + escapeHtml(label) +
+        '<span class="news-filter-count">' + count + '</span></a></li>';
+    }
+    return '<div class="news-toolbar">' +
+      '<nav class="news-filter" aria-label="文章分類"><ul>' +
+        tab('/news/', '全部', total, !activeSlug) +
+        categories.map(function (c) { return tab(categoryUrl(c.slug), c.name, c.count, c.slug === activeSlug); }).join('') +
+      '</ul></nav>' +
+      (showSort === false ? '' :
+      '<div class="news-sort" role="group" aria-label="文章排序">' +
+        '<span class="news-sort-label">排序</span>' +
+        '<button type="button" class="news-sort-btn is-active" data-sort="newest" aria-pressed="true">由新到舊</button>' +
+        '<button type="button" class="news-sort-btn" data-sort="oldest" aria-pressed="false">由舊到新</button>' +
+      '</div>') +
+    '</div>';
+  }
+
+  /*
    * 文章卡片（首頁與文章列表頁共用）
    */
   function renderCard(data, options) {
     options = options || {};
     var meta = buildMeta(data);
     var headingTag = options.headingTag || 'h3';
-    return '<article class="news-card-item">' +
+    return '<article class="news-card-item" data-date="' + escapeHtml(meta.published) + '"' + (data.pinned ? ' data-pinned="true"' : '') + '>' +
       '<a class="news-card-link" href="' + escapeHtml(meta.path) + '">' +
         (data.featured_image
           ? '<div class="news-card-image"><img src="' + escapeHtml(data.featured_image) + '" alt="' + escapeHtml(meta.imageAlt) + '" loading="lazy" decoding="async"></div>'
           : '') +
         '<div class="news-card-body">' +
-          '<div class="news-card-meta"><time datetime="' + escapeHtml(meta.published) + '">' + formatDate(data.date) + '</time>' +
+          '<div class="news-card-meta">' +
+          (meta.category ? '<span class="news-card-category">' + escapeHtml(meta.category.name) + '</span>' : '') +
+          '<time datetime="' + escapeHtml(meta.published) + '">' + formatDate(data.date) + '</time>' +
           (data.pinned ? '<span class="news-card-pinned">置頂</span>' : '') + '</div>' +
           '<' + headingTag + ' class="news-card-title">' + escapeHtml(meta.title) + '</' + headingTag + '>' +
           '<p class="news-card-excerpt">' + escapeHtml(truncateByWidth(meta.excerpt, 110)) + '</p>' +
@@ -342,6 +378,9 @@
 
     if (!meta.title) add('error', '缺少文章標題。');
 
+    if (!data.category) add('error', '請選擇文章分類。');
+    else if (meta.category) add('ok', '分類：' + meta.category.name);
+
     if (!data.slug) add('error', '缺少網址代稱（slug）。');
     else if (!SLUG_PATTERN.test(data.slug)) add('error', '網址代稱只能使用英文小寫、數字與連字號，例如 iphone-battery-replace。');
     else add('ok', '網址：' + meta.path);
@@ -390,6 +429,8 @@
     toIso: toIso,
     absoluteUrl: absoluteUrl,
     articleUrl: articleUrl,
+    categoryUrl: categoryUrl,
+    renderCategoryNav: renderCategoryNav,
     normalizeTags: normalizeTags,
     processBodyHtml: processBodyHtml,
     buildMeta: buildMeta,

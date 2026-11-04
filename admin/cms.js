@@ -324,7 +324,9 @@
   }
 
   function entryToPost(entry) {
-    var data = entry.get('data');
+    // 切換頁面或剛發布時，entry 可能暫時是空的
+    var data = entry && entry.get && entry.get('data');
+    if (!data || !data.get) return null;
     var get = function (key) { return toPlain(data.get(key)); };
     return {
       title: get('title') || '',
@@ -335,6 +337,7 @@
       featured_image: get('featured_image') || '',
       featured_image_alt: get('featured_image_alt') || '',
       tags: AR.normalizeTags(get('tags')),
+      category: get('category') || '',
       seo_title: get('seo_title') || '',
       seo_description: get('seo_description') || '',
       noindex: get('noindex') === true,
@@ -343,9 +346,36 @@
     };
   }
 
+  // 分類名稱對照（由 build 產生 /news/categories.json；剛新增、尚未上線的分類會先顯示網址代稱）
+  var categoryNames = null;
+  var categoryWaiters = [];
+  function loadCategoryNames(cb) {
+    if (categoryNames) return cb(categoryNames);
+    categoryWaiters.push(cb);
+    if (categoryWaiters.length > 1) return;
+    fetch('/news/categories.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .catch(function () { return []; })
+      .then(function (list) {
+        categoryNames = {};
+        (list || []).forEach(function (c) { categoryNames[c.slug] = c.name; });
+        categoryWaiters.splice(0).forEach(function (fn) { fn(categoryNames); });
+      });
+  }
+
   var NewsPreview = createClass({
     getInitialState: function () {
-      return { seoOpen: true };
+      return { seoOpen: true, categoryNames: categoryNames || {} };
+    },
+
+    componentDidMount: function () {
+      var self = this;
+      this.mounted = true;
+      loadCategoryNames(function (names) { if (self.mounted) self.setState({ categoryNames: names }); });
+    },
+
+    componentWillUnmount: function () {
+      this.mounted = false;
     },
 
     resolveAsset: function (path) {
@@ -362,6 +392,8 @@
     render: function () {
       var self = this;
       var post = entryToPost(this.props.entry);
+      if (!post) return null;
+      if (post.category) post.categoryName = this.state.categoryNames[post.category] || post.category;
       var meta = AR.buildMeta(post);
       var audit = AR.seoAudit(post);
 
@@ -462,7 +494,8 @@
 
     render: function () {
       var self = this;
-      var cases = toPlain(this.props.entry.getIn(['data', 'cases'])) || [];
+      var entry = this.props.entry;
+      var cases = (entry && entry.getIn ? toPlain(entry.getIn(['data', 'cases'])) : null) || [];
       var html = cases.map(function (item, i) {
         item = item || {};
         var body = String(item.body || '').replace(/(<img\b[^>]*\bsrc=")(\/images\/[^"]+)(")/gi, function (m, a, src, b) {
@@ -488,22 +521,34 @@
    * 4. 單一頁面設定（首頁設定／聯絡資訊／維修案例）
    *    導航點下去直接進入編輯畫面，不必再點一次清單
    * ========================================================= */
-  var SINGLE_FILE = { homepage: 'homepage', contact: 'contact', portfolio: 'portfolio' };
+  var SINGLE_FILE = { categories: 'categories', homepage: 'homepage', contact: 'contact', portfolio: 'portfolio' };
 
-  var lastHash = window.location.hash;
+  function entryHashFor(name) {
+    return '#/collections/' + name + '/entries/' + SINGLE_FILE[name];
+  }
 
+  function singleFileTarget(name) {
+    // 已在該頁編輯畫面（例如按左上角「←」）→ 回最新消息；否則直接開編輯畫面
+    return window.location.hash.indexOf(entryHashFor(name)) === 0 ? '#/collections/news' : entryHashFor(name);
+  }
+
+  // 在點擊當下就改目的地，不經過清單頁。
+  // 若先進清單頁再跳轉，會跟 Decap 載入清單的時機衝突，偶爾跳出「無法預覽內容」錯誤。
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!link) return;
+    var m = (link.getAttribute('href') || '').match(/^#?\/collections\/([^/?#]+)\/?$/);
+    if (!m || !SINGLE_FILE[m[1]]) return;
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.hash = singleFileTarget(m[1]);
+  }, true);
+
+  // 直接輸入或從書籤開啟清單網址時的備援（頁面載入當下、Decap 尚未渲染前處理）
   function openSingleFileEntry() {
-    var hash = window.location.hash;
-    var m = hash.match(/^#\/collections\/([^/?]+)\/?(\?.*)?$/);
-    if (m && SINGLE_FILE[m[1]]) {
-      var entryHash = '#/collections/' + m[1] + '/entries/' + SINGLE_FILE[m[1]];
-      // 從編輯畫面按「←」返回時，改回最新消息，避免又被帶回同一頁
-      var target = lastHash === entryHash ? '#/collections/news' : entryHash;
-      lastHash = target;
-      window.location.replace(target);
-      return;
-    }
-    lastHash = hash;
+    var m = window.location.hash.match(/^#\/collections\/([^/?]+)\/?(\?.*)?$/);
+    if (m && SINGLE_FILE[m[1]]) window.location.replace(entryHashFor(m[1]));
   }
 
   window.addEventListener('hashchange', openSingleFileEntry);

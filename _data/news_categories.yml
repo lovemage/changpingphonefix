@@ -1,0 +1,16 @@
+categories:
+  - name: 店家公告
+    slug: announcements
+    description: 昌平手機維修營業時間異動、服務更新與店家公告，台中北屯在地手機維修。
+  - name: 維修知識
+    slug: repair-guide
+    description: 手機、平板維修知識與故障判斷，螢幕、電池、充電孔、主機板維修前必看。
+  - name: 保養技巧
+    slug: care-tips
+    description: 手機電池保養、充電習慣與日常使用小撇步，延長手機壽命。
+  - name: 優惠活動
+    slug: promotions
+    description: 昌平手機維修最新優惠活動與維修折扣資訊。
+  - name: 3C 新知
+    slug: tech-news
+    description: 新機資訊、系統更新與 3C 產品使用新知。

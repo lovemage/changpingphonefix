@@ -60,12 +60,38 @@
       <image:loc>https://cp-phonefix.com/images/img-0375681fcd.webp</image:loc>
       <image:title>手機進水搶修案例</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/img-db54cdaaf1.webp</image:loc>
+      <image:title>🔋 Samsung 三星手機電池更換｜耗電快、電力不足、自動關機！</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cp-phonefix.com/images/img-8dabd86301.webp</image:loc>
+      <image:title>Samsung Galaxy Z Fold4｜內屏黑屏不顯示・轉軸排線更換</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://cp-phonefix.com/news/</loc>
     <lastmod>2025-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cp-phonefix.com/news/category/announcements/</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cp-phonefix.com/news/category/repair-guide/</loc>
+    <lastmod>2025-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cp-phonefix.com/news/category/care-tips/</loc>
+    <lastmod>2024-01-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cp-phonefix.com/news/samsung-battery-replacement-guide/</loc>

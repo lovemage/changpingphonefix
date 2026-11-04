@@ -45,6 +45,11 @@
     X-Robots-Tag = "noindex"
 
 [[headers]]
+  for = "/news/categories.json"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
   for = "/news/feed.xml"
   [headers.values]
     Content-Type = "application/rss+xml; charset=utf-8"

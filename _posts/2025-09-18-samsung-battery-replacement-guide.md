@@ -1,6 +1,7 @@
 ---
 title: 三星手機電池更換全攻略：讓你的愛機重獲新生！
 slug: samsung-battery-replacement-guide
+category: repair-guide
 date: "2025-09-18T03:03:28.902Z"
 excerpt: 隨著智慧型手機使用時間拉長，電池老化成了不可避免的問題。尤其是三星手機，雖然性能強大，但電池續航力下降後，常讓人苦惱。其實，只要選擇正確的更換方式，你的三星手機就能像新的一樣，繼續陪伴你度過每一天。
 featured_image: /images/news/an3.jpg

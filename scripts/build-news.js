@@ -42,6 +42,31 @@ function readYaml(file) {
   }
 }
 
+const MAX_CATEGORIES = 5;
+
+// 文章分類（後台「文章分類」管理，最多 5 個）
+function readCategories() {
+  const data = readYaml('_data/news_categories.yml');
+  const list = Array.isArray(data.categories) ? data.categories : [];
+  const seen = new Set();
+  const out = [];
+  list.forEach((c) => {
+    const name = String((c && c.name) || '').trim();
+    const slug = String((c && c.slug) || '').trim();
+    if (!name || !AR.SLUG_PATTERN.test(slug)) {
+      console.warn(`[news] 分類「${name || slug}」名稱或網址代稱格式不符，略過。`);
+      return;
+    }
+    if (seen.has(slug)) return;
+    seen.add(slug);
+    out.push({ name, slug, description: String(c.description || '').trim() });
+  });
+  if (out.length > MAX_CATEGORIES) {
+    console.warn(`[news] 分類超過 ${MAX_CATEGORIES} 個，只使用前 ${MAX_CATEGORIES} 個。`);
+  }
+  return out.slice(0, MAX_CATEGORIES);
+}
+
 function parseFrontMatter(raw) {
   const match = raw.replace(/^\uFEFF/, '').match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*(?:\r?\n([\s\S]*))?$/);
   if (!match) return null;
@@ -53,7 +78,8 @@ function slugFromFilename(filename) {
   return (m ? m[1] : filename.replace(/\.md$/, '')).trim();
 }
 
-async function loadPosts() {
+async function loadPosts(categories) {
+  const categoryMap = new Map(categories.map((c) => [c.slug, c]));
   if (!fs.existsSync(POSTS_DIR)) return [];
   const files = fs.readdirSync(POSTS_DIR).filter((f) => f.endsWith('.md')).sort();
   const posts = [];
@@ -92,8 +118,15 @@ async function loadPosts() {
       bodyHtml = (await loadMarked())(bodyHtml);
     }
 
+    const category = categoryMap.get(String(data.category || '').trim());
+    if (!category) {
+      console.warn(`[news][warn] ${filename}：${data.category ? `分類「${data.category}」不存在` : '尚未選擇分類'}，只會出現在「全部」。`);
+    }
+
     const post = {
       ...data,
+      category: category ? category.slug : '',
+      categoryName: category ? category.name : '',
       slug,
       tags: AR.normalizeTags(data.tags),
       date: AR.toIso(data.date) || new Date().toISOString(),
@@ -198,6 +231,7 @@ function renderPage(opts) {
         `<meta property="article:published_time" content="${e(opts.article.published)}">`,
         `<meta property="article:modified_time" content="${e(opts.article.modified)}">`,
         `<meta property="article:author" content="${e(SITE.name)}">`,
+        ...(opts.article.section ? [`<meta property="article:section" content="${e(opts.article.section)}">`] : []),
         ...opts.article.tags.map((t) => `<meta property="article:tag" content="${e(t)}">`)
       ].join('\n\t')
     : '';
@@ -244,6 +278,7 @@ ${opts.main}
 ${renderFooter(opts.contact)}
 <script src="/js/jquery.js" defer></script>
 <script src="/js/bootstrap.min.js" defer></script>
+${opts.script || ''}
 </body>
 </html>
 `;
@@ -266,7 +301,7 @@ function renderArticlePage(post, related, contact) {
 
   const relatedHtml = related.length
     ? `<section class="article-related" aria-labelledby="related-heading">
-	<h2 id="related-heading" class="article-related-title">更多維修知識</h2>
+	<h2 id="related-heading" class="article-related-title">延伸閱讀</h2>
 	<div class="news-card-grid">
 		${related.map((p) => AR.renderCard(p, { headingTag: 'h3' })).join('\n\t\t')}
 	</div>
@@ -288,6 +323,7 @@ function renderArticlePage(post, related, contact) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': meta.url },
       url: meta.url,
       ...(meta.tags.length ? { keywords: meta.tags.join(', ') } : {}),
+      ...(meta.category ? { articleSection: meta.category.name } : {}),
       wordCount: meta.bodyText.replace(/\s/g, '').length
     },
     {
@@ -296,7 +332,8 @@ function renderArticlePage(post, related, contact) {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: '首頁', item: SITE.url + '/' },
         { '@type': 'ListItem', position: 2, name: '最新消息', item: SITE.url + '/news/' },
-        { '@type': 'ListItem', position: 3, name: meta.title, item: meta.url }
+        ...(meta.category ? [{ '@type': 'ListItem', position: 3, name: meta.category.name, item: AR.absoluteUrl(meta.category.path) }] : []),
+        { '@type': 'ListItem', position: meta.category ? 4 : 3, name: meta.title, item: meta.url }
       ]
     }
   ];
@@ -310,34 +347,93 @@ function renderArticlePage(post, related, contact) {
     imageAlt: meta.imageAlt,
     preloadImage: post.featured_image,
     noindex: meta.noindex,
-    article: { published: meta.published, modified: meta.modified, tags: meta.tags },
+    article: { published: meta.published, modified: meta.modified, tags: meta.tags, section: meta.category && meta.category.name },
     jsonLd,
     contact,
     main: main + relatedHtml
   });
 }
 
-/* ---------- 列表頁 ---------- */
+/* ---------- 列表頁（全部／各分類） ---------- */
 
-function renderIndexPage(posts, contact) {
+// 排序切換：由新到舊（置頂優先）／由舊到新，選擇會記住
+const SORT_SCRIPT = `<script>
+(function () {
+	var grid = document.querySelector('[data-news-grid]');
+	var buttons = document.querySelectorAll('.news-sort-btn');
+	if (!grid || !buttons.length) return;
+	var cards = Array.prototype.slice.call(grid.children);
+	function time(el) { return Date.parse(el.getAttribute('data-date')) || 0; }
+	function apply(mode) {
+		var sorted = cards.slice().sort(function (a, b) {
+			if (mode === 'oldest') return time(a) - time(b);
+			var pa = a.hasAttribute('data-pinned'), pb = b.hasAttribute('data-pinned');
+			if (pa !== pb) return pa ? -1 : 1;
+			return time(b) - time(a);
+		});
+		sorted.forEach(function (el) { grid.appendChild(el); });
+		Array.prototype.forEach.call(buttons, function (btn) {
+			var on = btn.getAttribute('data-sort') === mode;
+			btn.classList.toggle('is-active', on);
+			btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+		});
+	}
+	var saved = 'newest';
+	try { saved = localStorage.getItem('cpfix-news-sort') || 'newest'; } catch (e) {}
+	if (saved === 'oldest') apply('oldest');
+	Array.prototype.forEach.call(buttons, function (btn) {
+		btn.addEventListener('click', function () {
+			var mode = btn.getAttribute('data-sort');
+			apply(mode);
+			try { localStorage.setItem('cpfix-news-sort', mode); } catch (e) {}
+		});
+	});
+})();
+</script>`;
+
+const INDEX_DESCRIPTION = '昌平手機維修最新消息：手機、平板、摺疊機維修知識、電池保養技巧、優惠活動與服務公告，台中北屯在地專業維修。';
+
+function renderListPage({ posts, allPosts, categories, category, contact }) {
   const listed = posts.filter((p) => p.noindex !== true);
-  const url = SITE.url + '/news/';
-  const description = '昌平手機維修最新消息：手機、平板、摺疊機維修知識、電池保養技巧、優惠活動與服務公告，台中北屯在地專業維修。';
+  const pagePath = category ? AR.categoryUrl(category.slug) : '/news/';
+  const url = AR.absoluteUrl(pagePath);
+  const heading = category ? category.name : '最新消息與維修知識';
+  const description = category
+    ? (category.description || `昌平手機維修「${category.name}」相關文章，台中北屯在地專業手機、平板維修。`)
+    : INDEX_DESCRIPTION;
+  const lead = category
+    ? (category.description || `「${category.name}」分類的所有文章。`)
+    : '維修技術資訊、保養小撇步、優惠活動與服務公告。';
 
-  const main = `<nav class="article-breadcrumb" aria-label="麵包屑導覽"><ol><li><a href="/">首頁</a></li><li aria-current="page">最新消息</li></ol></nav>
+  const navCategories = categories
+    .map((c) => ({ ...c, count: allPosts.filter((p) => p.category === c.slug).length }))
+    .filter((c) => c.count > 0);
+
+  const crumbs = category
+    ? `<li><a href="/">首頁</a></li><li><a href="/news/">最新消息</a></li><li aria-current="page">${AR.escapeHtml(category.name)}</li>`
+    : '<li><a href="/">首頁</a></li><li aria-current="page">最新消息</li>';
+
+  const main = `<nav class="article-breadcrumb news-list-breadcrumb" aria-label="麵包屑導覽"><ol>${crumbs}</ol></nav>
 <header class="news-index-header">
-	<h1 class="news-index-title">最新消息與維修知識</h1>
-	<p class="news-index-lead">維修技術資訊、保養小撇步、優惠活動與服務公告。</p>
+	<h1 class="news-index-title">${AR.escapeHtml(heading)}</h1>
+	<p class="news-index-lead">${AR.escapeHtml(lead)}</p>
 </header>
+${navCategories.length ? AR.renderCategoryNav(navCategories, category ? category.slug : '', allPosts.length, posts.length > 1) : ''}
 ${posts.length
-    ? `<div class="news-card-grid">\n${posts.map((p) => AR.renderCard(p, { headingTag: 'h2' })).join('\n')}\n</div>`
-    : '<p class="news-empty">目前沒有最新消息。</p>'}`;
+    ? `<div class="news-card-grid" data-news-grid>\n${posts.map((p) => AR.renderCard(p, { headingTag: 'h2' })).join('\n')}\n</div>`
+    : '<p class="news-empty">目前沒有文章。</p>'}`;
+
+  const breadcrumbLd = [
+    { '@type': 'ListItem', position: 1, name: '首頁', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: '最新消息', item: SITE.url + '/news/' }
+  ];
+  if (category) breadcrumbLd.push({ '@type': 'ListItem', position: 3, name: category.name, item: url });
 
   const jsonLd = [
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: '最新消息與維修知識',
+      name: heading,
       description,
       url,
       inLanguage: 'zh-TW',
@@ -355,21 +451,19 @@ ${posts.length
     {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '首頁', item: SITE.url + '/' },
-        { '@type': 'ListItem', position: 2, name: '最新消息', item: url }
-      ]
+      itemListElement: breadcrumbLd
     }
   ];
 
   return renderPage({
-    title: '最新消息與維修知識' + SITE.titleSuffix,
+    title: (category ? `${category.name}｜最新消息` : '最新消息與維修知識') + SITE.titleSuffix,
     description,
     canonical: url,
     image: (posts[0] && posts[0].featured_image) || SITE.defaultImage,
     jsonLd,
     contact,
-    main
+    main,
+    script: posts.length > 1 ? SORT_SCRIPT : ''
   });
 }
 
@@ -395,7 +489,7 @@ function renderFeed(posts) {
       <guid isPermaLink="true">${xmlEscape(meta.url)}</guid>
       <pubDate>${new Date(meta.published).toUTCString()}</pubDate>
       <description>${xmlEscape(meta.description)}</description>
-${meta.tags.map((t) => `      <category>${xmlEscape(t)}</category>`).join('\n')}
+${[meta.category && meta.category.name, ...meta.tags].filter(Boolean).map((t) => `      <category>${xmlEscape(t)}</category>`).join('\n')}
     </item>`;
     })
     .join('\n');
@@ -416,7 +510,7 @@ ${items}
 
 /* ---------- Sitemap ---------- */
 
-function renderSitemap(posts, homepage, portfolio) {
+function renderSitemap(posts, homepage, portfolio, categories) {
   const indexable = posts.filter((p) => p.noindex !== true);
   const latest = indexable
     .map((p) => p.updated || p.date)
@@ -447,6 +541,18 @@ function renderSitemap(posts, homepage, portfolio) {
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`);
+
+  (categories || []).forEach((c) => {
+    const inCat = indexable.filter((p) => p.category === c.slug);
+    if (!inCat.length) return;
+    const catLatest = inCat.map((p) => p.updated || p.date).sort().pop();
+    urls.push(`  <url>
+    <loc>${xmlEscape(AR.absoluteUrl(AR.categoryUrl(c.slug)))}</loc>
+    <lastmod>${catLatest.slice(0, 10)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>`);
+  });
 
   indexable.forEach((p) => {
     const meta = AR.buildMeta(p);
@@ -510,7 +616,8 @@ async function main() {
   const siteConfig = readJson('site-config.json');
   const homepage = siteConfig.homepage || readYaml('_data/homepage.yml');
   const portfolio = siteConfig.portfolio || readYaml('_data/portfolio.yml');
-  const posts = await loadPosts();
+  const categories = readCategories();
+  const posts = await loadPosts(categories);
 
   fs.rmSync(NEWS_DIR, { recursive: true, force: true });
 
@@ -518,16 +625,29 @@ async function main() {
     const related = posts
       .filter((p) => p.slug !== post.slug && p.noindex !== true)
       .sort((a, b) => {
-        const shared = (p) => p.tags.filter((t) => post.tags.includes(t)).length;
-        return shared(b) - shared(a) || new Date(b.date) - new Date(a.date);
+        const score = (p) => (post.category && p.category === post.category ? 10 : 0) +
+          p.tags.filter((t) => post.tags.includes(t)).length;
+        return score(b) - score(a) || new Date(b.date) - new Date(a.date);
       })
       .slice(0, 3);
     writeFile(path.join(NEWS_DIR, post.slug, 'index.html'), renderArticlePage(post, related, contact));
   });
 
-  writeFile(path.join(NEWS_DIR, 'index.html'), renderIndexPage(posts, contact));
+  writeFile(path.join(NEWS_DIR, 'index.html'), renderListPage({ posts, allPosts: posts, categories, category: null, contact }));
+  let categoryPages = 0;
+  categories.forEach((category) => {
+    const inCategory = posts.filter((p) => p.category === category.slug);
+    if (!inCategory.length) return;
+    categoryPages += 1;
+    writeFile(
+      path.join(NEWS_DIR, 'category', category.slug, 'index.html'),
+      renderListPage({ posts: inCategory, allPosts: posts, categories, category, contact })
+    );
+  });
+  // 後台預覽用：分類名稱對照
+  writeFile(path.join(NEWS_DIR, 'categories.json'), JSON.stringify(categories.map((c) => ({ slug: c.slug, name: c.name }))) + '\n');
   writeFile(path.join(NEWS_DIR, 'feed.xml'), renderFeed(posts));
-  writeFile(path.join(ROOT, 'sitemap.xml'), renderSitemap(posts, homepage, portfolio));
+  writeFile(path.join(ROOT, 'sitemap.xml'), renderSitemap(posts, homepage, portfolio, categories));
   writeFile(
     path.join(ROOT, 'articles.json'),
     JSON.stringify(posts.map((p) => {
@@ -541,13 +661,14 @@ async function main() {
         excerpt: meta.excerpt,
         featured_image: p.featured_image || null,
         tags: meta.tags,
+        category: meta.category ? meta.category.name : null,
         pinned: p.pinned === true
       };
     }), null, 2) + '\n'
   );
   injectHomepageNews(posts);
 
-  console.log(`[news] 已產生 ${posts.length} 篇文章頁、列表頁、RSS 與 sitemap.xml`);
+  console.log(`[news] 已產生 ${posts.length} 篇文章頁、列表頁、${categoryPages} 個分類頁、RSS 與 sitemap.xml`);
 }
 
 main().catch((err) => {

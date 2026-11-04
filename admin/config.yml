@@ -2,27 +2,56 @@ backend:
   name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
 
-# 本地開發模式 (部署後請註解掉)
+# 本地開發模式：執行 npx decap-server 後取消註解（部署前請再註解掉）
 # local_backend: true
+
+locale: "zh_Hant"
+site_url: "https://cp-phonefix.com"
+display_url: "https://cp-phonefix.com"
+logo_url: "/images/logo300.png"
 
 media_folder: "images" # Media files will be stored in the repo under images
 public_folder: "/images" # The src attribute for uploaded media will begin with /images
 
 collections:
-  - name: "news" # Used in routes, e.g., /admin/collections/blog
-    label: "最新消息" # Used in the UI
-    folder: "_posts" # The path to the folder where the documents are stored
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
-    fields: # The fields for each document, usually in front matter
-      - {label: "標題", name: "title", widget: "string"}
-      - {label: "發布日期", name: "date", widget: "datetime"}
-      - {label: "摘要", name: "excerpt", widget: "text", required: false}
-      - {label: "特色圖片", name: "featured_image", widget: "image", required: false}
-      - {label: "內容", name: "body", widget: "markdown"}
-      - {label: "標籤", name: "tags", widget: "list", required: false}
-      - {label: "是否置頂", name: "pinned", widget: "boolean", default: false}
-      - {label: "發布狀態", name: "published", widget: "boolean", default: true}
+  - name: "news"
+    label: "最新消息"
+    label_singular: "文章"
+    description: "發佈後約 1～2 分鐘網站會自動更新。每篇文章會產生獨立網址 /news/網址代稱/，並自動加入 sitemap。右側預覽與上方「SEO 檢查」會即時顯示前台樣式與建議。"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.slug}}"
+    preview_path: "news/{{fields.slug}}/"
+    summary: "{{title}}　｜　{{year}}/{{month}}/{{day}}"
+    sortable_fields: ["date", "title"]
+    view_filters:
+      - {label: "已發佈", field: "published", pattern: true}
+      - {label: "草稿（未發佈）", field: "published", pattern: false}
+      - {label: "置頂", field: "pinned", pattern: true}
+    fields:
+      - {label: "標題（H1）", name: "title", widget: "string", hint: "文章主標題，建議 12～28 個中文字，前段放主要關鍵字，例如「iPhone 15 換電池｜台中北屯現場快速更換」。"}
+      - label: "網址代稱（slug）"
+        name: "slug"
+        widget: "string"
+        pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "只能使用英文小寫、數字與連字號（-），例如 iphone-15-battery-replacement"]
+        hint: "文章網址會是 https://cp-phonefix.com/news/這裡填的內容/ 。發佈後請勿再修改，否則舊網址會失效。"
+      - {label: "發布日期", name: "date", widget: "datetime", default: "{{now}}", picker_utc: false}
+      - {label: "最後更新日期", name: "updated", widget: "datetime", required: false, picker_utc: false, hint: "文章有實質修改時再填，搜尋引擎會顯示為更新日期。"}
+      - {label: "摘要", name: "excerpt", widget: "text", required: false, hint: "顯示在文章列表與文章開頭，也是預設的搜尋結果描述。建議 50～120 個中文字。"}
+      - {label: "特色圖片", name: "featured_image", widget: "image", required: false, hint: "顯示於文章頂部、列表卡片與 Facebook/LINE 分享。建議 1200×675px（16:9）、JPG、500KB 以內。"}
+      - {label: "特色圖片替代文字（alt）", name: "featured_image_alt", widget: "string", required: false, hint: "用一句話描述圖片內容，例如「師傅正在更換三星 S23 電池」。"}
+      - {label: "標籤", name: "tags", widget: "list", required: false, hint: "以逗號分隔，例如：iPhone, 電池更換"}
+      - {label: "內容", name: "body", widget: "htmleditor", hint: "可切換「富文本編輯」與「HTML 原始碼」。段落小標請用「標題 2」「標題 3」，文章標題已是標題 1。"}
+      - label: "SEO 標題"
+        name: "seo_title"
+        widget: "string"
+        required: false
+        hint: "搜尋結果顯示的標題，留空則使用文章標題（網站名稱會自動加在後面）。"
+      - {label: "SEO 描述", name: "seo_description", widget: "text", required: false, hint: "搜尋結果顯示的說明文字，留空則使用摘要。建議 50～120 個中文字。"}
+      - {label: "不讓搜尋引擎收錄", name: "noindex", widget: "boolean", default: false, required: false, hint: "一般文章請保持關閉。短期活動或內部公告可開啟。"}
+      - {label: "是否置頂", name: "pinned", widget: "boolean", default: false, required: false}
+      - {label: "發布狀態", name: "published", widget: "boolean", default: true, required: false, hint: "關閉後文章會從網站移除（檔案仍保留，可再開啟）。"}
+      - {label: "內容格式", name: "format", widget: "hidden", default: "html"}
 
   - name: "pages"
     label: "頁面管理"

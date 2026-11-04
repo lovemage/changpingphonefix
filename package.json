@@ -1,14 +1,19 @@
 {
   "name": "changping-phone-repair",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "昌平手機維修網站",
+  "private": true,
   "scripts": {
-    "build": "node scripts/optimize-images.js && node generate-articles.js",
-    "dev": "node generate-articles.js && python -m http.server 8000"
+    "build": "node scripts/optimize-images.js && node generate-articles.js && node scripts/build-news.js",
+    "dev": "npm run build && python3 -m http.server 8000"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
+    "js-yaml": "4.1.0",
+    "marked": "18.1.1",
     "sharp": "^0.34.0"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "keywords": ["phone repair", "mobile repair", "台中維修"],
   "author": "昌平手機維修",

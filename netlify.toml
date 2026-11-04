@@ -3,9 +3,48 @@
   publish = "."
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
 
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
+
+# 舊版 sitemap 曾列出的文章網址，轉到新的文章頁
+[[redirects]]
+  from = "/articles/三星手機電池更換全攻略：讓你的愛機重獲新生！"
+  to = "/news/samsung-battery-replacement-guide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articles/*"
+  to = "/news/:splat/"
+  status = 301
+  force = true
+
+# 後台、原始檔與備份資料夾不讓搜尋引擎收錄
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/_posts/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/昌平/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/articles.json"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/news/feed.xml"
+  [headers.values]
+    Content-Type = "application/rss+xml; charset=utf-8"

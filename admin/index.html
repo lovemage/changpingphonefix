@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>昌平手機維修 - 內容管理</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@4.17.6/es2021/jodit.fat.min.css" />
+  <link rel="stylesheet" href="/admin/cms.css" />
 </head>
 <body>
-  <!-- Include the script that builds the page and powers Netlify CMS -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  
+  <!-- Decap CMS（Netlify CMS 的後續版本） -->
+  <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+  <!-- 富文本編輯器 -->
+  <script src="https://cdn.jsdelivr.net/npm/jodit@4.17.6/es2021/jodit.fat.min.js"></script>
+  <!-- 與前台共用的文章版型與 SEO 檢查 -->
+  <script src="/js/article-render.js"></script>
+  <script src="/admin/cms.js"></script>
+
   <script>
     if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
+      window.netlifyIdentity.on("init", function (user) {
         if (!user) {
-          window.netlifyIdentity.on("login", () => {
+          window.netlifyIdentity.on("login", function () {
             document.location.href = "/admin/";
           });
         }

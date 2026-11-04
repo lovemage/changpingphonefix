@@ -1,0 +1,138 @@
+/* 後台：內容編輯器（富文本 / HTML 原始碼切換） */
+.cpfix-editor {
+  padding: 0 !important;
+  overflow: visible;
+}
+
+.cpfix-editor-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f4f6f8;
+  border-bottom: 1px solid #dfe3e8;
+}
+
+.cpfix-mode {
+  display: inline-flex;
+  border: 1px solid #c4ccd3;
+}
+
+.cpfix-mode-btn {
+  appearance: none;
+  border: 0;
+  background: #ffffff;
+  color: #4a5560;
+  font-size: 14px;
+  padding: 7px 16px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.cpfix-mode-btn + .cpfix-mode-btn {
+  border-left: 1px solid #c4ccd3;
+}
+
+.cpfix-mode-btn:hover {
+  background: #eef2f5;
+}
+
+.cpfix-mode-btn.is-active {
+  background: #1f2a30;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cpfix-mode-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.cpfix-mode-btn:focus-visible,
+.cpfix-action-btn:focus-visible {
+  outline: 2px solid #00a8b8;
+  outline-offset: 2px;
+}
+
+.cpfix-editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cpfix-action-btn {
+  appearance: none;
+  border: 1px solid #c4ccd3;
+  background: #ffffff;
+  color: #1f2a30;
+  font-size: 14px;
+  padding: 7px 14px;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.cpfix-action-btn:hover {
+  background: #eef2f5;
+}
+
+.cpfix-rich .jodit-container {
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.cpfix-rich .jodit-wysiwyg {
+  font-size: 16px;
+  line-height: 1.85;
+  color: #2b343a;
+}
+
+.cpfix-rich .jodit-wysiwyg h2 { font-size: 22px; margin: 1.4em 0 0.6em; }
+.cpfix-rich .jodit-wysiwyg h3 { font-size: 19px; margin: 1.2em 0 0.5em; }
+.cpfix-rich .jodit-wysiwyg h4 { font-size: 17px; margin: 1em 0 0.4em; }
+.cpfix-rich .jodit-wysiwyg img { max-width: 100%; height: auto; }
+.cpfix-rich .jodit-wysiwyg blockquote { margin: 1em 0; padding: 12px 16px; background: #f4f6f8; }
+.cpfix-rich .jodit-wysiwyg table { border-collapse: collapse; width: 100%; }
+.cpfix-rich .jodit-wysiwyg td,
+.cpfix-rich .jodit-wysiwyg th { border: 1px solid #d5dbe0; padding: 6px 10px; }
+
+.cpfix-code {
+  padding: 0;
+}
+
+.cpfix-code-input {
+  display: block;
+  width: 100%;
+  min-height: 520px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 0;
+  resize: vertical;
+  background: #1f2a30;
+  color: #e8eef1;
+  font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 2;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+}
+
+.cpfix-code-input:focus {
+  outline: none;
+}
+
+.cpfix-code-note {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #5d6a73;
+  background: #f4f6f8;
+  border-top: 1px solid #dfe3e8;
+}
+
+/* Decap 全域樣式會清除清單符號，編輯區內還原 */
+.cpfix-rich .jodit-wysiwyg ul { list-style: disc; padding-left: 1.6em; margin: 0 0 1em; }
+.cpfix-rich .jodit-wysiwyg ol { list-style: decimal; padding-left: 1.6em; margin: 0 0 1em; }
+.cpfix-rich .jodit-wysiwyg p { margin: 0 0 1em; }
+.cpfix-rich .jodit-wysiwyg a { color: #00808c; text-decoration: underline; }

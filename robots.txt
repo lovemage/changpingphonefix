@@ -8,6 +8,7 @@ User-agent: *
 Allow: /
 Allow: /index.html
 Allow: /portfolio.html
+Allow: /news/
 Allow: /images/
 Allow: /css/
 Allow: /js/
@@ -18,6 +19,7 @@ Disallow: /admin/
 Disallow: /_data/
 Disallow: /_posts/
 Disallow: /generate-articles.js
+Disallow: /scripts/
 Disallow: /netlify.toml
 Disallow: /package.json
 Disallow: /cms_圖片管理說明.md

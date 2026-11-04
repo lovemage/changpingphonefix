@@ -4,7 +4,7 @@
   "description": "昌平手機維修網站",
   "private": true,
   "scripts": {
-    "build": "node scripts/optimize-images.js && node generate-articles.js && node scripts/build-news.js",
+    "build": "node scripts/optimize-images.js && node generate-articles.js && node scripts/build-news.js && node scripts/build-portfolio.js",
     "dev": "npm run build && python3 -m http.server 8000"
   },
   "dependencies": {

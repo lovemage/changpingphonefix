@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 
 // 文章（_posts）改由 scripts/build-news.js 產生靜態頁面、sitemap 與 articles.json
 
@@ -87,8 +88,9 @@ function generateSiteConfig() {
         // 讀取維修案例
         const portfolioPath = path.join(__dirname, '_data', 'portfolio.yml');
         if (fs.existsSync(portfolioPath)) {
+            // 案例說明是多行 HTML，需用完整的 YAML 解析器
             const portfolioContent = fs.readFileSync(portfolioPath, 'utf8');
-            config.portfolio = parseSimpleYaml(portfolioContent);
+            config.portfolio = yaml.load(portfolioContent) || {};
         }
 
         // CMS 傳進來的文字一律轉純文字，避免 ** 或超長 alt 直接顯示
@@ -106,6 +108,7 @@ function generateSiteConfig() {
             config.portfolio.cases.forEach((item) => {
                 if (item.title) item.title = toPlainText(item.title, 60);
                 if (item.alt) item.alt = toPlainText(item.alt, 90);
+                if (typeof item.body === 'string') item.body = item.body.trim();
             });
         }
 

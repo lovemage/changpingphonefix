@@ -17,55 +17,11 @@
 	<link rel="stylesheet" href="css/nivo-lightbox.css">
 	<link rel="stylesheet" href="css/nivo_themes/default/default.css">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/portfolio.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
 	<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 	<style>
-		/* 確保維修案例圖片正確顯示 */
-		.iso-box {
-			margin-bottom: 30px;
-		}
-
-		.iso-box img {
-			width: 100% !important;
-			aspect-ratio: 16 / 9 !important;
-			object-fit: cover !important;
-			display: block !important;
-			transition: all 0.4s ease-in-out;
-			border-radius: 8px;
-		}
-
-		.iso-box img:hover {
-			opacity: 0.8;
-			transform: scale(1.05);
-		}
-
-		.iso-box a {
-			display: block;
-			overflow: hidden;
-			border-radius: 8px;
-			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-			transition: all 0.3s ease;
-		}
-
-		.iso-box a:hover {
-			box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-			transform: translateY(-2px);
-		}
-
-		/* 響應式設計 - 16:9圖片在所有設備上都保持16:9比例 */
-		@media (max-width: 768px) {
-			.iso-box img {
-				aspect-ratio: 16 / 9 !important;
-			}
-		}
-
-		@media (max-width: 480px) {
-			.iso-box img {
-				aspect-ratio: 16 / 9 !important;
-			}
-		}
-
 		/* FAQ 樣式 */
 		#faq {
 			background: #ffffff;
@@ -227,10 +183,16 @@
                		</ul>
                		<div class="iso-box-section wow fadeIn" data-wow-delay="0.3s">
                			<div class="iso-box-wrapper col4-iso-box" id="portfolio-container">
-               				<!-- 維修案例將通過 JavaScript 動態載入 -->
-               				<div class="portfolio-loading" style="text-align: center; padding: 60px 0; width: 100%;">
-               					<i class="fa fa-spinner fa-spin" style="font-size: 24px; color: #00c6d7;"></i>
-               					<p style="margin-top: 15px; color: #666;">載入維修案例中...</p>
+<!-- CASES:START -->
+<div class="iso-box iphone col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/iphone.webp" data-lightbox-gallery="portfolio-gallery" title="蘋果手機螢幕維修案例"><img src="/images/iphone.webp" alt="蘋果手機螢幕維修案例" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">蘋果手機</p><h2 class="case-title">蘋果手機螢幕維修案例</h2></div></article></div>
+<div class="iso-box iphone col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/iphone4.webp" data-lightbox-gallery="portfolio-gallery" title="蘋果手機充電孔維修"><img src="/images/iphone4.webp" alt="蘋果手機充電孔維修" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">蘋果手機</p><h2 class="case-title">蘋果手機充電孔維修</h2></div></article></div>
+<div class="iso-box android col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/android.webp" data-lightbox-gallery="portfolio-gallery" title="Android手機維修"><img src="/images/android.webp" alt="Android手機維修" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">安卓手機</p><h2 class="case-title">Android手機維修</h2></div></article></div>
+<div class="iso-box android col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/an1.webp" data-lightbox-gallery="portfolio-gallery" title="Android螢幕更換"><img src="/images/an1.webp" alt="Android螢幕更換" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">安卓手機</p><h2 class="case-title">Android螢幕更換</h2></div></article></div>
+<div class="iso-box android col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/an2.webp" data-lightbox-gallery="portfolio-gallery" title="Android電池維修"><img src="/images/an2.webp" alt="Android電池維修" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">安卓手機</p><h2 class="case-title">Android電池維修</h2></div></article></div>
+<div class="iso-box android col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/an3.webp" data-lightbox-gallery="portfolio-gallery" title="Android系統修復"><img src="/images/an3.webp" alt="Android系統修復" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">安卓手機</p><h2 class="case-title">Android系統修復</h2></div></article></div>
+<div class="iso-box tablet col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/pad2.webp" data-lightbox-gallery="portfolio-gallery" title="平板充電維修"><img src="/images/pad2.webp" alt="平板充電維修" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">平板</p><h2 class="case-title">平板充電維修</h2></div></article></div>
+<div class="iso-box iphone col-lg-4 col-md-4 col-sm-6"><article class="case-card"><a class="case-media" href="/images/img-0375681fcd.webp" data-lightbox-gallery="portfolio-gallery" title="手機進水別慌！黃金搶修時間很重要"><img src="/images/img-0375681fcd.webp" alt="手機進水搶修案例" loading="lazy" decoding="async"></a><div class="case-text"><p class="case-category">蘋果手機</p><h2 class="case-title">手機進水別慌！黃金搶修時間很重要</h2></div></article></div>
+<!-- CASES:END -->
                				</div>
                			</div>
                		</div>
@@ -487,12 +449,9 @@
 
 <script>
 $(document).ready(function() {
-	// 初始化 WOW 動畫
 	new WOW().init();
-	
-	// 載入維修案例
-	loadPortfolioPage();
-	
+	initializePortfolio();
+
 	// 確保懸浮按鈕顯示
 	const floatingButtons = document.querySelector('.floating-buttons');
 	if (floatingButtons) {
@@ -501,112 +460,59 @@ $(document).ready(function() {
 	}
 });
 
-// 載入維修案例頁面
-async function loadPortfolioPage() {
-	try {
-		const response = await fetch('/site-config.json');
-		let config;
-		
-		if (response.ok) {
-			config = await response.json();
-		} else {
-			// 使用預設配置
-			config = {
-				portfolio: {
-					cases: [
-						{title: "蘋果手機螢幕維修案例", image: "/images/iphone.jpg", category: "iphone", alt: "蘋果手機螢幕維修案例"},
-						{title: "蘋果手機電池更換", image: "/images/iphone2.jpg", category: "iphone", alt: "蘋果手機電池更換"},
-						{title: "蘋果手機主機板維修", image: "/images/iphone3.jpg", category: "iphone", alt: "蘋果手機主機板維修"},
-						{title: "蘋果手機充電孔維修", image: "/images/iphone4.jpg", category: "iphone", alt: "蘋果手機充電孔維修"},
-						{title: "Android手機維修", image: "/images/android.jpg", category: "android", alt: "Android手機維修"},
-						{title: "Android螢幕更換", image: "/images/an1.jpg", category: "android", alt: "Android螢幕更換"},
-						{title: "Android電池維修", image: "/images/an2.jpg", category: "android", alt: "Android電池維修"},
-						{title: "Android系統修復", image: "/images/an3.jpg", category: "android", alt: "Android系統修復"},
-						{title: "平板螢幕維修", image: "/images/pad1.jpg", category: "tablet", alt: "平板螢幕維修"},
-						{title: "平板充電維修", image: "/images/pad2.jpg", category: "tablet", alt: "平板充電維修"}
-					]
-				}
-			};
-		}
-		
-		renderPortfolio(config.portfolio.cases);
-		
-	} catch (error) {
-		console.error('載入維修案例失敗:', error);
-		document.getElementById('portfolio-container').innerHTML = `
-			<div style="text-align: center; padding: 60px 0; width: 100%;">
-				<p style="color: #666;">載入維修案例時發生錯誤，請重新整理頁面。</p>
-			</div>
-		`;
-	}
-}
-
-// 渲染維修案例
-function renderPortfolio(cases) {
-	const container = document.getElementById('portfolio-container');
-	
-	if (!cases || cases.length === 0) {
-		container.innerHTML = `
-			<div style="text-align: center; padding: 60px 0; width: 100%;">
-				<p style="color: #666;">目前沒有維修案例</p>
-			</div>
-		`;
-		return;
-	}
-	
-	const casesHTML = cases.map(caseItem => `
-		<div class="iso-box ${caseItem.category} col-lg-4 col-md-4 col-sm-6">
-			<a href="${caseItem.image}" data-lightbox-gallery="portfolio-gallery">
-				<img src="${caseItem.image}" alt="${caseItem.alt}">
-			</a>
-		</div>
-	`).join('');
-	
-	container.innerHTML = casesHTML;
-	
-	// 重新初始化 isotope 和 lightbox
-	setTimeout(() => {
-		initializePortfolioFeatures();
-	}, 100);
-}
-
-// 獲取分類中文名稱
-function getCategoryName(category) {
-	const names = {
-		'iphone': '蘋果手機',
-		'android': '安卓手機',
-		'tablet': '平板',
-		'laptop': '電腦'
+// 維修案例由 build 寫入頁面（scripts/build-portfolio.js），這裡只負責互動
+function initializePortfolio() {
+	const $container = $('#portfolio-container');
+	const relayout = function () {
+		if ($container.data('isotope')) $container.isotope('layout');
 	};
-	return names[category] || category;
-}
 
-// 初始化維修案例功能
-function initializePortfolioFeatures() {
-	const $container = $('.iso-box-wrapper');
-	
-	// 初始化 isotope
-	$container.imagesLoaded(function() {
+	// 說明文案過長才顯示「展開全文」
+	function updateToggles() {
+		$container.find('.case-body').each(function () {
+			const body = this;
+			const button = body.parentNode.querySelector('.case-toggle');
+			if (!button || body.classList.contains('is-open')) return;
+			const overflowing = body.scrollHeight > body.clientHeight + 4;
+			body.classList.toggle('is-clamped', overflowing);
+			button.hidden = !overflowing;
+		});
+	}
+
+	$container.on('click', '.case-toggle', function () {
+		const body = document.getElementById(this.getAttribute('aria-controls'));
+		const open = !body.classList.contains('is-open');
+		body.classList.toggle('is-open', open);
+		body.classList.toggle('is-clamped', !open);
+		this.setAttribute('aria-expanded', String(open));
+		this.textContent = open ? '收合' : '展開全文';
+		relayout();
+		if (!open) {
+			const card = this.closest('.case-card');
+			if (card && card.getBoundingClientRect().top < 0) card.scrollIntoView({ block: 'start' });
+		}
+	});
+
+	updateToggles();
+	$container.imagesLoaded(function () {
+		updateToggles();
 		$container.isotope({
 			itemSelector: '.iso-box',
 			layoutMode: 'fitRows'
 		});
 	});
-	
-	// 初始化 lightbox
-	$('.iso-box-section a').nivoLightbox({
-		effect: 'fadeScale',
-	});
-	
-	// 篩選功能
-	$('.filter-wrapper a').click(function(e) {
-		e.preventDefault();
 
+	// 只有案例主圖開燈箱，文案裡的連結維持一般連結
+	$container.find('a[data-lightbox-gallery]').nivoLightbox({
+		effect: 'fadeScale'
+	});
+
+	// 篩選
+	$('.filter-wrapper a').click(function (e) {
+		e.preventDefault();
 		$('.filter-wrapper a').removeClass('selected');
 		$(this).addClass('selected');
-
-		const filterValue = $(this).attr('data-filter');
-		$container.isotope({ filter: filterValue });
+		$container.isotope({ filter: $(this).attr('data-filter') });
 	});
 }
 </script>

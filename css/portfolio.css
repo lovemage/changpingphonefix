@@ -1,0 +1,198 @@
+/* =========================================================
+ * 維修案例卡片：portfolio.html 與後台預覽共用
+ * ========================================================= */
+
+.case-card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.case-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+}
+
+/* 主圖（點擊開燈箱） */
+.case-media {
+  display: block;
+  overflow: hidden;
+  background: #f5f8f9;
+}
+
+.case-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.case-media:hover img,
+.case-media:focus img {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+
+/* 文字區 */
+.case-text {
+  padding: 18px 20px 20px;
+}
+
+.case-category {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #00808c;
+}
+
+.case-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  color: #1f2a30;
+}
+
+/* 說明文案（CMS 富文本 / HTML） */
+.case-body {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #3a464d;
+  overflow-wrap: anywhere;
+}
+
+.case-body.is-clamped {
+  max-height: 10.8em; /* 約 6 行 */
+  overflow: hidden;
+  position: relative;
+}
+
+.case-body.is-clamped::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3.6em;
+  background: linear-gradient(rgba(255, 255, 255, 0), #ffffff);
+  pointer-events: none;
+}
+
+.case-body > *:first-child { margin-top: 0; }
+.case-body > *:last-child { margin-bottom: 0; }
+
+.case-body p {
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0 0 0.8em;
+}
+
+.case-body h3,
+.case-body h4,
+.case-body h5 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1f2a30;
+  margin: 1.1em 0 0.4em;
+}
+
+.case-body ul,
+.case-body ol {
+  padding-left: 1.4em;
+  margin: 0 0 0.8em;
+}
+
+.case-body li { margin-bottom: 0.25em; }
+
+.case-body a {
+  color: #00808c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.case-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.case-body iframe {
+  max-width: 100%;
+  border: 0;
+}
+
+.case-body blockquote {
+  margin: 0.8em 0;
+  padding: 10px 14px;
+  background: #f5f8f9;
+  border: 0;
+  font-size: inherit;
+}
+
+.case-body hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #e3e8eb;
+  margin: 1.2em 0;
+}
+
+.case-body .table-responsive {
+  margin: 0.8em 0;
+  border: 1px solid #e3e8eb;
+}
+
+.case-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.case-body th,
+.case-body td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e3e8eb;
+  text-align: left;
+}
+
+.case-toggle {
+  appearance: none;
+  margin-top: 10px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #00808c;
+  cursor: pointer;
+}
+
+.case-toggle:hover {
+  color: #1f2a30;
+}
+
+.case-toggle:focus-visible {
+  outline: 2px solid #00a8b8;
+  outline-offset: 2px;
+}
+
+.case-toggle[hidden] {
+  display: none;
+}
+
+.case-empty {
+  text-align: center;
+  color: #6b7880;
+  padding: 60px 0;
+}
+
+/* 篩選後保持卡片間距 */
+#portfolio-container .iso-box {
+  margin-bottom: 30px;
+}

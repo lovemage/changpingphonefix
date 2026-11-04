@@ -284,6 +284,53 @@
   }
 
   /*
+   * 維修案例卡片（portfolio.html 與後台預覽共用）
+   * item: { title, image, category, alt, body }
+   * options: { index, resolveAsset, expanded }
+   */
+  var CASE_CATEGORIES = { iphone: '蘋果手機', android: '安卓手機', tablet: '平板', laptop: '電腦' };
+
+  function renderCaseCard(item, options) {
+    options = options || {};
+    var resolve = options.resolveAsset || function (p) { return p; };
+    var index = options.index || 0;
+    var title = String(item.title || '').trim();
+    var category = CASE_CATEGORIES[item.category] ? item.category : 'iphone';
+    var alt = String(item.alt || '').trim() || title;
+    var image = item.image ? resolve(item.image) : '';
+    var body = String(item.body || '')
+      .replace(/<script\b[\s\S]*?<\/script>/gi, '')
+      .trim();
+    // 案例標題是 h2，說明裡的標題整體降一級（h1/h2→h3、h3→h4、h4 以下→h5）
+    body = body.replace(/<(\/?)h([1-6])(\s[^>]*)?>/gi, function (m, close, level, attrs) {
+      var next = Math.min(Math.max(Number(level) + 1, 3), 5);
+      return '<' + close + 'h' + next + (close ? '' : (attrs || '')) + '>';
+    });
+    var hasBody = stripHtml(body).length > 0 || /<(img|iframe|table)\b/i.test(body);
+    var bodyId = 'case-body-' + (index + 1);
+
+    return '<div class="iso-box ' + category + ' col-lg-4 col-md-4 col-sm-6">' +
+      '<article class="case-card">' +
+        (image
+          ? '<a class="case-media" href="' + escapeHtml(image) + '" data-lightbox-gallery="portfolio-gallery" title="' + escapeHtml(title) + '">' +
+              '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(alt) + '" loading="lazy" decoding="async">' +
+            '</a>'
+          : '') +
+        '<div class="case-text">' +
+          '<p class="case-category">' + CASE_CATEGORIES[category] + '</p>' +
+          (title ? '<h2 class="case-title">' + escapeHtml(title) + '</h2>' : '') +
+          (hasBody
+            ? '<div class="case-body' + (options.expanded ? '' : ' is-clamped') + '" id="' + bodyId + '">' +
+                processBodyHtml(body, { title: title }) +
+              '</div>' +
+              (options.expanded ? '' : '<button type="button" class="case-toggle" aria-expanded="false" aria-controls="' + bodyId + '" hidden>展開全文</button>')
+            : '') +
+        '</div>' +
+      '</article>' +
+    '</div>';
+  }
+
+  /*
    * SEO 檢查：回傳 [{ level: 'error' | 'warn' | 'ok', msg }]
    * error 會阻擋該文章建置（例如網址代稱錯誤），warn 只提醒
    */
@@ -348,6 +395,8 @@
     buildMeta: buildMeta,
     renderArticleMain: renderArticleMain,
     renderCard: renderCard,
+    renderCaseCard: renderCaseCard,
+    CASE_CATEGORIES: CASE_CATEGORIES,
     seoAudit: seoAudit
   };
 });

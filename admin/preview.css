@@ -199,3 +199,34 @@ body {
 .cpfix-checklist .is-warn .cpfix-check-icon { background: #c98a00; }
 .cpfix-checklist .is-error .cpfix-check-icon { background: #c0392b; }
 .cpfix-checklist .is-error { color: #a52a1f; font-weight: 600; }
+
+/* 維修案例預覽 */
+.cpfix-cases {
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.cpfix-cases-note {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e3e8eb;
+  font-size: 13px;
+  color: #5d6a73;
+}
+
+.cpfix-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* 預覽中取消 Bootstrap 欄寬與浮動，改由 grid 排版 */
+.cpfix-cases-grid .iso-box {
+  float: none;
+  width: auto;
+  padding: 0;
+  margin: 0;
+}

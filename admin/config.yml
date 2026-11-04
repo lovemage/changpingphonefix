@@ -94,6 +94,8 @@ collections:
           - label: "維修案例"
             name: "cases"
             widget: "list"
+            label_singular: "案例"
+            summary: "{{fields.title}}"
             fields:
               - {label: "案例標題", name: "title", widget: "string"}
               - label: "案例圖片"
@@ -103,6 +105,15 @@ collections:
               - label: "設備類型"
                 name: "category"
                 widget: "select"
-                options: ["iphone", "android", "tablet", "laptop"]
+                options:
+                  - {label: "蘋果手機", value: "iphone"}
+                  - {label: "安卓手機", value: "android"}
+                  - {label: "平板", value: "tablet"}
+                  - {label: "電腦", value: "laptop"}
                 default: "iphone"
-              - {label: "圖片描述", name: "alt", widget: "string"}
+              - {label: "圖片描述（alt）", name: "alt", widget: "string", hint: "用一句話描述圖片內容，給看不到圖的人與 Google 看，例如「iPhone 13 螢幕破裂更換前後對照」。"}
+              - label: "案例說明"
+                name: "body"
+                widget: "htmleditor"
+                required: false
+                hint: "可切換「富文本編輯」或「HTML 原始碼」，寫維修過程、故障原因、更換零件等。前台會顯示在圖片下方，文字較長時自動收合成「展開全文」。"

@@ -445,9 +445,48 @@
   });
 
   CMS.registerPreviewTemplate('news', NewsPreview);
+
+  /* =========================================================
+   * 3. 維修案例預覽（與前台 portfolio.html 同一套卡片）
+   * ========================================================= */
+  var PortfolioPreview = createClass({
+    resolveAsset: function (path) {
+      if (!path) return '';
+      try {
+        var asset = this.props.getAsset(path);
+        return (asset && asset.toString()) || path;
+      } catch (e) {
+        return path;
+      }
+    },
+
+    render: function () {
+      var self = this;
+      var cases = toPlain(this.props.entry.getIn(['data', 'cases'])) || [];
+      var html = cases.map(function (item, i) {
+        item = item || {};
+        var body = String(item.body || '').replace(/(<img\b[^>]*\bsrc=")(\/images\/[^"]+)(")/gi, function (m, a, src, b) {
+          return a + self.resolveAsset(src) + b;
+        });
+        return AR.renderCaseCard(Object.assign({}, item, { body: body }), {
+          index: i,
+          expanded: true,
+          resolveAsset: function (p) { return self.resolveAsset(p); }
+        });
+      }).join('');
+
+      return h('div', { className: 'cpfix-preview cpfix-cases' },
+        h('p', { className: 'cpfix-cases-note' }, '前台的長文案會先顯示約 6 行，訪客點「展開全文」才看到全部；這裡直接顯示完整內容方便檢查。'),
+        h('div', { className: 'cpfix-cases-grid', dangerouslySetInnerHTML: { __html: html || '<p class="case-empty">尚未新增案例。</p>' } })
+      );
+    }
+  });
+
+  CMS.registerPreviewTemplate('portfolio', PortfolioPreview);
   CMS.registerPreviewStyle('/css/bootstrap.min.css');
   CMS.registerPreviewStyle('/css/font-awesome.min.css');
   CMS.registerPreviewStyle('/css/style.css');
   CMS.registerPreviewStyle('/css/article.css');
+  CMS.registerPreviewStyle('/css/portfolio.css');
   CMS.registerPreviewStyle('/admin/preview.css');
 })();

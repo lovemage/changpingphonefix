@@ -53,8 +53,9 @@ collections:
       - {label: "發布狀態", name: "published", widget: "boolean", default: true, required: false, hint: "關閉後文章會從網站移除（檔案仍保留，可再開啟）。"}
       - {label: "內容格式", name: "format", widget: "hidden", default: "html"}
 
-  - name: "pages"
-    label: "頁面管理"
+  - name: "homepage"
+    label: "首頁設定"
+    description: "首頁標題、標語與背景圖片。"
     files:
       - label: "首頁設定"
         name: "homepage"
@@ -76,7 +77,11 @@ collections:
             name: "about_image"
             widget: "image"
             hint: "建議尺寸：600x400px，檔案大小不超過200KB，格式：JPG"
-      
+
+  - name: "contact"
+    label: "聯絡資訊"
+    description: "地址、電話、LINE 與營業時間，會套用到全站。"
+    files:
       - label: "聯絡資訊"
         name: "contact"
         file: "_data/contact.yml"
@@ -87,7 +92,11 @@ collections:
           - {label: "營業時間", name: "business_hours", widget: "string"}
           - {label: "Facebook連結", name: "facebook_url", widget: "string"}
 
-      - label: "維修案例管理"
+  - name: "portfolio"
+    label: "維修案例"
+    description: "維修案例的圖片與說明文案，發布後約 1～2 分鐘更新到「維修案例」頁。"
+    files:
+      - label: "維修案例"
         name: "portfolio"
         file: "_data/portfolio.yml"
         fields:

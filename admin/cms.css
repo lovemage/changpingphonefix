@@ -136,3 +136,26 @@
 .cpfix-rich .jodit-wysiwyg ol { list-style: decimal; padding-left: 1.6em; margin: 0 0 1em; }
 .cpfix-rich .jodit-wysiwyg p { margin: 0 0 1em; }
 .cpfix-rich .jodit-wysiwyg a { color: #00808c; text-decoration: underline; }
+
+/* 左側導航：作用中改為整格色塊，不使用左側色條 */
+[class*="SidebarNavLink"] {
+  border-left: 0 !important;
+  padding-left: 20px !important;
+}
+
+[class*="SidebarNavLink"]:hover {
+  background: #eef2f5 !important;
+  color: #1f2a30 !important;
+}
+
+[class*="SidebarNavLink"].sidebar-active,
+[class*="SidebarNavLink"].sidebar-active:hover {
+  background: #1f2a30 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+[class*="SidebarNavLink"].sidebar-active svg {
+  color: #ffffff;
+  fill: currentColor;
+}

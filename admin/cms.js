@@ -483,6 +483,31 @@
   });
 
   CMS.registerPreviewTemplate('portfolio', PortfolioPreview);
+
+  /* =========================================================
+   * 4. 單一頁面設定（首頁設定／聯絡資訊／維修案例）
+   *    導航點下去直接進入編輯畫面，不必再點一次清單
+   * ========================================================= */
+  var SINGLE_FILE = { homepage: 'homepage', contact: 'contact', portfolio: 'portfolio' };
+
+  var lastHash = window.location.hash;
+
+  function openSingleFileEntry() {
+    var hash = window.location.hash;
+    var m = hash.match(/^#\/collections\/([^/?]+)\/?(\?.*)?$/);
+    if (m && SINGLE_FILE[m[1]]) {
+      var entryHash = '#/collections/' + m[1] + '/entries/' + SINGLE_FILE[m[1]];
+      // 從編輯畫面按「←」返回時，改回最新消息，避免又被帶回同一頁
+      var target = lastHash === entryHash ? '#/collections/news' : entryHash;
+      lastHash = target;
+      window.location.replace(target);
+      return;
+    }
+    lastHash = hash;
+  }
+
+  window.addEventListener('hashchange', openSingleFileEntry);
+  openSingleFileEntry();
   CMS.registerPreviewStyle('/css/bootstrap.min.css');
   CMS.registerPreviewStyle('/css/font-awesome.min.css');
   CMS.registerPreviewStyle('/css/style.css');

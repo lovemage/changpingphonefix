@@ -141,6 +141,22 @@ function parseSimpleYaml(content) {
     return result;
 }
 
+// 把 CMS 貼上的 markdown 轉成純文字，避免畫面出現 ** 或落落長的 alt
+function toPlainText(value, maxLength) {
+    if (typeof value !== 'string') return value;
+    let text = value
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/__(.+?)__/g, '$1')
+        .replace(/\*\*/g, '')
+        .replace(/^\s*#+\s*/gm, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    if (maxLength && text.length > maxLength) {
+        text = text.slice(0, maxLength).trim() + '…';
+    }
+    return text;
+}
+
 // 生成網站配置 JSON
 function generateSiteConfig() {
     try {
@@ -165,6 +181,24 @@ function generateSiteConfig() {
         if (fs.existsSync(portfolioPath)) {
             const portfolioContent = fs.readFileSync(portfolioPath, 'utf8');
             config.portfolio = parseSimpleYaml(portfolioContent);
+        }
+
+        // CMS 傳進來的文字一律轉純文字，避免 ** 或超長 alt 直接顯示
+        if (config.homepage) {
+            ['site_title', 'main_heading', 'sub_heading', 'description'].forEach((key) => {
+                if (config.homepage[key]) config.homepage[key] = toPlainText(config.homepage[key]);
+            });
+        }
+        if (config.contact) {
+            ['address', 'phone', 'business_hours'].forEach((key) => {
+                if (config.contact[key]) config.contact[key] = toPlainText(config.contact[key]);
+            });
+        }
+        if (config.portfolio && Array.isArray(config.portfolio.cases)) {
+            config.portfolio.cases.forEach((item) => {
+                if (item.title) item.title = toPlainText(item.title, 60);
+                if (item.alt) item.alt = toPlainText(item.alt, 90);
+            });
         }
 
         // 套用 WebP 對照表（CMS 上傳的圖片由 scripts/optimize-images.js 轉檔）

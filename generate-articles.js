@@ -167,6 +167,23 @@ function generateSiteConfig() {
             config.portfolio = parseSimpleYaml(portfolioContent);
         }
 
+        // 套用 WebP 對照表（CMS 上傳的圖片由 scripts/optimize-images.js 轉檔）
+        const mapPath = path.join(__dirname, '.image-map.json');
+        if (fs.existsSync(mapPath)) {
+            const imageMap = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
+            const swap = (value) => (typeof value === 'string' && imageMap[value] ? imageMap[value].webp : value);
+            if (config.homepage) {
+                ['hero_background_1', 'hero_background_2', 'about_image'].forEach((key) => {
+                    if (config.homepage[key]) config.homepage[key] = swap(config.homepage[key]);
+                });
+            }
+            if (config.portfolio && Array.isArray(config.portfolio.cases)) {
+                config.portfolio.cases.forEach((item) => {
+                    if (item.image) item.image = swap(item.image);
+                });
+            }
+        }
+
         // 寫入配置文件
         fs.writeFileSync(path.join(__dirname, 'site-config.json'), JSON.stringify(config, null, 2));
         console.log('Generated site-config.json');

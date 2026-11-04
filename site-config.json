@@ -1,63 +1,69 @@
 {
   "homepage": {
-    "site_title": "昌平手機維修 - 台中北屯專業手機平板維修",
-    "main_heading": "昌平手機維修",
-    "sub_heading": "台中北屯專業手機平板維修！",
-    "description": "疑難雜症現場就能查清楚",
-    "hero_background_1": "/images/home-bg-slideshow1.jpg",
-    "hero_background_2": "/images/home-bg-slideshow2.jpg",
-    "about_image": "/images/about-img.jpg"
+    "site_title": "台中北屯手機維修推薦｜Phone・安卓・摺疊機維修｜昌平手機維修",
+    "main_heading": "台中北屯專業手機維修",
+    "sub_heading": "現場快速維修・資料保護・專業設備",
+    "description": "Phone・Android・摺疊機維修｜電池更換・螢幕維修・資料救援",
+    "hero_background_1": "/images/home-bg-slideshow1.webp",
+    "hero_background_2": "/images/home-bg-slideshow2.webp",
+    "about_image": "/images/about-img.webp"
   },
   "contact": {
     "address": "台中市北屯區昌平路一段107之12號",
     "phone": "0970-805-995",
     "line_id": "@cp10712",
-    "business_hours": "中午12:00～晚上11:00",
-    "facebook_url": ""
+    "business_hours": "中午12:00～凌晨03:00",
+    "facebook_url": "https://www.facebook.com/profile.php?id=61579391294737"
   },
   "portfolio": {
     "cases": [
       {
         "title": "蘋果手機螢幕維修案例",
-        "image": "/images/iphone.jpg",
+        "image": "/images/iphone.webp",
         "category": "iphone",
         "alt": "蘋果手機螢幕維修案例"
       },
       {
         "title": "蘋果手機充電孔維修",
-        "image": "/images/iphone4.jpg",
+        "image": "/images/iphone4.webp",
         "category": "iphone",
         "alt": "蘋果手機充電孔維修"
       },
       {
         "title": "Android手機維修",
-        "image": "/images/android.jpg",
+        "image": "/images/android.webp",
         "category": "android",
         "alt": "Android手機維修"
       },
       {
         "title": "Android螢幕更換",
-        "image": "/images/an1.jpg",
+        "image": "/images/an1.webp",
         "category": "android",
         "alt": "Android螢幕更換"
       },
       {
         "title": "Android電池維修",
-        "image": "/images/an2.jpg",
+        "image": "/images/an2.webp",
         "category": "android",
         "alt": "Android電池維修"
       },
       {
         "title": "Android系統修復",
-        "image": "/images/an3.jpg",
+        "image": "/images/an3.webp",
         "category": "android",
         "alt": "Android系統修復"
       },
       {
         "title": "平板充電維修",
-        "image": "/images/pad2.jpg",
+        "image": "/images/pad2.webp",
         "category": "tablet",
         "alt": "平板充電維修"
+      },
+      {
+        "category": "iphone",
+        "image": "/images/img-0375681fcd.webp",
+        "alt": "📱 **手機進水別慌！黃金搶修時間很重要！** 💦  ⚠️",
+        "title": "📱 **手機進水別慌！黃金搶修時間很重要！**"
       }
     ]
   }
